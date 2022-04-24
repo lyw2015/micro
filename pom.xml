@@ -21,7 +21,6 @@
         <module>micro-services</module>
         <module>micro-gateway</module>
         <module>micro-auth</module>
-        <module>micro-sentinel-dashboard</module>
     </modules>
 
     <properties>
