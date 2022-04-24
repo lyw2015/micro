@@ -36,4 +36,9 @@ public class UserController extends BaseController implements UserClient {
     public AjaxResult listUsers() {
         return AjaxResult.success(userService.listUsers());
     }
+
+    @Override
+    public AjaxResult getUserById(Long id) {
+        return AjaxResult.success(userService.getUserById(id));
+    }
 }

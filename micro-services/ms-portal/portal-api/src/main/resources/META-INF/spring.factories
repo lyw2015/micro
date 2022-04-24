@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.laiyw.micro.portal.api.PortalApiConfiguration

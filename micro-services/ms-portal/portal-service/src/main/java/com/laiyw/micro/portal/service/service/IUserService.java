@@ -1,5 +1,9 @@
 package com.laiyw.micro.portal.service.service;
 
+import com.laiyw.micro.portal.service.domain.UserInfo;
+
+import java.util.List;
+
 /**
  * @ProjectName micro
  * @Author Laiyw
@@ -9,5 +13,7 @@ package com.laiyw.micro.portal.service.service;
 
 public interface IUserService {
 
-    Object listUsers();
+    List<UserInfo> listUsers();
+
+    UserInfo getUserById(Long id);
 }

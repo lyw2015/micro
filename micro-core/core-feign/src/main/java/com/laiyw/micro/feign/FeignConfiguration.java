@@ -1,5 +1,7 @@
 package com.laiyw.micro.feign;
 
+import feign.Logger;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,4 +15,9 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {"com.laiyw.micro.feign"})
 @Configuration
 public class FeignConfiguration {
+
+    @Bean
+    public Logger.Level feignLoggerLevel() {
+        return Logger.Level.HEADERS;
+    }
 }
