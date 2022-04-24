@@ -19,26 +19,26 @@ mvn clean package
 使用如下命令启动编译后的控制台：
 
 ```bash
-java -Dserver.port=8080 \
--Dcsp.sentinel.dashboard.server=localhost:8080 \
+java -Dserver.port=8858 \
+-Dcsp.sentinel.dashboard.server=localhost:8858 \
 -Dproject.name=sentinel-dashboard \
 -jar target/sentinel-dashboard.jar
 ```
 
-上述命令中我们指定几个 JVM 参数，其中 `-Dserver.port=8080` 是 Spring Boot 的参数，
-用于指定 Spring Boot 服务端启动端口为 `8080`。其余几个是 Sentinel 客户端的参数。
+上述命令中我们指定几个 JVM 参数，其中 `-Dserver.port=8858` 是 Spring Boot 的参数，
+用于指定 Spring Boot 服务端启动端口为 `8858`。其余几个是 Sentinel 客户端的参数。
 
 为便于演示，我们对控制台本身加入了流量控制功能，具体做法是引入 Sentinel 提供的 `CommonFilter` 这个 Servlet Filter。
 上述 JVM 参数的含义是：
 
 | 参数 | 作用 |
 |--------|--------|
-|`-Dcsp.sentinel.dashboard.server=localhost:8080`|向 Sentinel 接入端指定控制台的地址|
+|`-Dcsp.sentinel.dashboard.server=localhost:8858`|向 Sentinel 接入端指定控制台的地址|
 |`-Dproject.name=sentinel-dashboard`|向 Sentinel 指定应用名称，比如上面对应的应用名称就为 `sentinel-dashboard`|
 
 全部的配置项可以参考 [启动配置项文档](https://github.com/alibaba/Sentinel/wiki/%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE%E9%A1%B9)。
 
-经过上述配置，控制台启动后会自动向自己发送心跳。程序启动后浏览器访问 `localhost:8080` 即可访问 Sentinel 控制台。
+经过上述配置，控制台启动后会自动向自己发送心跳。程序启动后浏览器访问 `localhost:8858` 即可访问 Sentinel 控制台。
 
 从 Sentinel 1.6.0 开始，Sentinel 控制台支持简单的**登录**功能，默认用户名和密码都是 `sentinel`。用户可以通过如下参数进行配置：
 

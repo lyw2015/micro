@@ -53,14 +53,17 @@ Sentinel 提供了多种规则来保护系统的不同部分。流量控制规�
 
 > 通过环境变量进行配置时，因为不支持 `.` 所以需要将其更换为 `_`。
 
-项 | 类型 | 默认值 | 最小值 | 描述
---- | --- | --- | --- | ---
-sentinel.dashboard.auth.username | String | sentinel | 无 | 登录控制台的用户名，默认为 `sentinel`
-sentinel.dashboard.auth.password | String | sentinel | 无 | 登录控制台的密码，默认为 `sentinel`
-sentinel.dashboard.app.hideAppNoMachineMillis | Integer | 0 | 60000 | 是否隐藏无健康节点的应用，距离最近一次主机心跳时间的毫秒数，默认关闭
-sentinel.dashboard.removeAppNoMachineMillis | Integer | 0 | 120000 | 是否自动删除无健康节点的应用，距离最近一次其下节点的心跳时间毫秒数，默认关闭
-sentinel.dashboard.unhealthyMachineMillis | Integer | 60000 | 30000 | 主机失联判定，不可关闭
-sentinel.dashboard.autoRemoveMachineMillis | Integer | 0 | 300000 | 距离最近心跳时间超过指定时间是否自动删除失联节点，默认关闭
+| 项                                             | 类型      | 默认值            | 最小值    | 描述                                     |
+|-----------------------------------------------|---------|----------------|--------|----------------------------------------|
+| sentinel.dashboard.auth.username              | String  | sentinel       | 无      | 登录控制台的用户名，默认为 `sentinel`               |
+| sentinel.dashboard.auth.password              | String  | sentinel       | 无      | 登录控制台的密码，默认为 `sentinel`                |
+| sentinel.dashboard.app.hideAppNoMachineMillis | Integer | 0              | 60000  | 是否隐藏无健康节点的应用，距离最近一次主机心跳时间的毫秒数，默认关闭     |
+| sentinel.dashboard.removeAppNoMachineMillis   | Integer | 0              | 120000 | 是否自动删除无健康节点的应用，距离最近一次其下节点的心跳时间毫秒数，默认关闭 |
+| sentinel.dashboard.unhealthyMachineMillis     | Integer | 60000          | 30000  | 主机失联判定，不可关闭                            |
+| sentinel.dashboard.autoRemoveMachineMillis    | Integer | 0              | 300000 | 距离最近心跳时间超过指定时间是否自动删除失联节点，默认关闭          |
+| sentinel.dashboard.nacos.serverAddr           | String  | 127.0.0.1:8848 | 无      | Nacos服务地址，默认为 `127.0.0.1:8848`         |
+| sentinel.dashboard.nacos.namespace            | String  | 无              | 无      | Nacos命名空间                              |
+| sentinel.dashboard.nacos.groupId              | String  | SENTINEL_GROUP | 无      | Nacos分组ID，默认为 `SENTINEL_GROUP`         |
 
 配置示例：
 
