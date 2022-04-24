@@ -1,0 +1,14 @@
+# 项目排除路径
+target
+
+### nacos ###
+nacos/logs/
+nacos/target/
+nacos/data/
+nacos/bin/logs/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr

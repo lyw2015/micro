@@ -1,0 +1,74 @@
+server:
+  port: 8081
+  servlet:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 18808baf-2238-4f27-be8b-6cfa3680a0a2
+        file-extension: yaml
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+          route-id-prefix: "route-"
+    sentinel:
+      eager: true
+      filter:
+        enabled: true
+      transport:
+        dashboard: 127.0.0.1:8858
+        port: 8719
+      datasource:
+        # flow, degrade, param-flow, system, authority, gw-flow, gw-api-group
+        gw-api-group:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-gw-api-group
+            rule-type: gw-api-group
+            data-type: json
+        gw-flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-gw-flow
+            rule-type: gw-flow
+            data-type: json
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-degrade
+            rule-type: degrade
+            data-type: json
+        system:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-system
+            rule-type: system
+            data-type: json
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
