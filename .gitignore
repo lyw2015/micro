@@ -7,6 +7,8 @@ nacos/target/
 nacos/data/
 nacos/bin/logs/
 
+seata/logs/
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
