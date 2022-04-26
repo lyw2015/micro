@@ -17,6 +17,7 @@
         <module>core-frame</module>
         <module>core-feign</module>
         <module>core-mybatis</module>
+        <module>core-sentinel</module>
     </modules>
 
     <properties>

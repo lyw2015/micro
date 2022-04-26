@@ -1,0 +1,48 @@
+spring:
+  cloud:
+    sentinel:
+      enabled: true
+      eager: true
+      transport:
+        dashboard: 127.0.0.1:8858
+      datasource:
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-flow
+            rule-type: flow
+            data-type: json
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-degrade
+            rule-type: degrade
+            data-type: json
+        param-flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-param-flow
+            rule-type: param-flow
+            data-type: json
+        authority:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-authority
+            rule-type: authority
+            data-type: json
+        system:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-system
+            rule-type: system
+            data-type: json
