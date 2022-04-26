@@ -15,22 +15,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserClientFallback implements FallbackFactory<UserClient> {
 
+    private AjaxResult error(final Throwable cause) {
+        return AjaxResult.error(cause.getMessage());
+    }
+
     @Override
-    public UserClient create(Throwable cause) {
+    public UserClient create(final Throwable cause) {
         return new UserClient() {
             @Override
             public AjaxResult listUsers() {
-                return AjaxResult.error();
+                return error(cause);
             }
 
             @Override
             public AjaxResult getUserById(Long id) {
-                return AjaxResult.error();
+                return error(cause);
             }
 
             @Override
             public AjaxResult deduction(Long id, Long money) {
-                return AjaxResult.error();
+                return error(cause);
             }
         };
     }

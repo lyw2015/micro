@@ -7,14 +7,12 @@ import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
-import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpStatus;
 import org.apache.http.entity.ContentType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 
 /**
  * @ProjectName micro
@@ -29,10 +27,7 @@ public class SentinelBlockRequestHandler implements BlockExceptionHandler {
         response.setStatus(HttpStatus.SC_INTERNAL_SERVER_ERROR);
         response.setCharacterEncoding(Charset.defaultCharset().name());
         response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
-        response.getWriter().write(JSON.toJSONString(new HashMap<String, Object>(2) {{
-            put("code", HttpStatus.SC_INTERNAL_SERVER_ERROR);
-            put("msg", String.format("%s: %s", getMessage(e), e.getRule().getResource()));
-        }}));
+        response.getWriter().write(String.format("%s: %s", getMessage(e), e.getRule().getResource()));
     }
 
     private String getMessage(BlockException e) {
