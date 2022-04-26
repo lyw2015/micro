@@ -1,11 +1,15 @@
 package com.laiyw.micro.portal.service.service.impl;
 
-import com.laiyw.micro.portal.service.domain.UserInfo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.laiyw.micro.frame.common.exception.ServiceException;
+import com.laiyw.micro.portal.service.domain.User;
+import com.laiyw.micro.portal.service.mapper.UserMapper;
 import com.laiyw.micro.portal.service.service.IUserService;
-import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,17 +18,30 @@ import java.util.List;
  * @CreateTime 2022/4/15 17:19
  * @Description TODO
  */
-
+@Transactional
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
-    public List<UserInfo> listUsers() {
-        return Collections.singletonList(UserInfo.builder().id(1L).name(RandomStringUtils.randomAlphanumeric(6)).build());
+    public List<User> listUsers() {
+        return userMapper.selectList(new QueryWrapper<>());
     }
 
     @Override
-    public UserInfo getUserById(Long id) {
-        return UserInfo.builder().id(id).name(RandomStringUtils.randomAlphanumeric(6)).build();
+    public User getUserById(Long id) {
+        return userMapper.selectById(id);
+    }
+
+    @Override
+    public boolean deduction(Long id, Long money) {
+        User user = this.getById(id);
+        if (user.getMoney() < money) {
+            throw new ServiceException("余额不足");
+        }
+        user.setMoney(user.getMoney() - money);
+        return updateById(user);
     }
 }

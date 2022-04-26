@@ -7,8 +7,15 @@ server:
       enabled: true
 
 spring:
+  config:
+    import: classpath:mybatis.yaml
   application:
     name: portal
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/micro-portal?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+    username: root
+    password: root
   cloud:
     nacos:
       config:

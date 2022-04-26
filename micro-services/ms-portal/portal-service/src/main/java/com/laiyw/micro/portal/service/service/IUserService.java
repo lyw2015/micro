@@ -1,6 +1,7 @@
 package com.laiyw.micro.portal.service.service;
 
-import com.laiyw.micro.portal.service.domain.UserInfo;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.laiyw.micro.portal.service.domain.User;
 
 import java.util.List;
 
@@ -11,9 +12,11 @@ import java.util.List;
  * @Description TODO
  */
 
-public interface IUserService {
+public interface IUserService extends IService<User> {
 
-    List<UserInfo> listUsers();
+    List<User> listUsers();
 
-    UserInfo getUserById(Long id);
+    User getUserById(Long id);
+
+    boolean deduction(Long id, Long money);
 }

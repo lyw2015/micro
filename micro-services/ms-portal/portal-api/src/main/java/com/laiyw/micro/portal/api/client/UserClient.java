@@ -4,6 +4,7 @@ import com.laiyw.micro.frame.common.domain.AjaxResult;
 import com.laiyw.micro.portal.api.fallback.UserClientFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @ProjectName micro
@@ -19,4 +20,7 @@ public interface UserClient {
 
     @GetMapping("/getUserById")
     AjaxResult getUserById(Long id);
+
+    @GetMapping("/deduction")
+    AjaxResult deduction(@RequestParam("id") Long id, @RequestParam("money") Long money);
 }

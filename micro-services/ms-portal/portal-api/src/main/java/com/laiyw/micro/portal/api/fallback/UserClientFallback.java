@@ -27,6 +27,11 @@ public class UserClientFallback implements FallbackFactory<UserClient> {
             public AjaxResult getUserById(Long id) {
                 return AjaxResult.error();
             }
+
+            @Override
+            public AjaxResult deduction(Long id, Long money) {
+                return AjaxResult.error();
+            }
         };
     }
 }

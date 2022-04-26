@@ -28,7 +28,7 @@ public class OrderController extends BaseController implements OrderClient {
     @Autowired
     private IOrderService orderService;
 
-    @Override
+    @GetMapping("saveOrder")
     public AjaxResult saveOrder() {
         return AjaxResult.success(orderService.saveOrder(Order.builder().build()));
     }

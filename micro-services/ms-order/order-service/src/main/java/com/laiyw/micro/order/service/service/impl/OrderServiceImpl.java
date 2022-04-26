@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laiyw.micro.order.service.domain.Order;
 import com.laiyw.micro.order.service.mapper.OrderMapper;
 import com.laiyw.micro.order.service.service.IOrderService;
+import com.laiyw.micro.portal.api.client.UserClient;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,9 +21,12 @@ import java.util.List;
  * @Description TODO
  */
 
+@Transactional
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
 
+    @Autowired
+    private UserClient userClient;
     @Autowired
     private OrderMapper orderMapper;
 
@@ -30,6 +35,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order = Order.builder().name(RandomStringUtils.randomAlphanumeric(6)).number(RandomUtils.nextLong(1, 99999))
                 .description(RandomStringUtils.randomAlphanumeric(50)).build();
         orderMapper.insert(order);
+        userClient.deduction(1L, RandomUtils.nextLong(0, 100));
         return order;
     }
 
