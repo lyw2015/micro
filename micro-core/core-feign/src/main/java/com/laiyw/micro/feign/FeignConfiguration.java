@@ -18,6 +18,6 @@ public class FeignConfiguration {
 
     @Bean
     public Logger.Level feignLoggerLevel() {
-        return Logger.Level.HEADERS;
+        return Logger.Level.FULL;
     }
 }

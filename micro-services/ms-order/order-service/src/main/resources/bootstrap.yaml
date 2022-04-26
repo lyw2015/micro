@@ -6,9 +6,13 @@ server:
       charset: utf-8
       enabled: true
 
+logging:
+  level:
+    com.laiyw.micro: debug
+
 spring:
   config:
-    import: classpath:mybatis.yaml
+    import: classpath:mybatis.yaml, classpath:feign.yaml
   application:
     name: order
   datasource:
@@ -84,3 +88,4 @@ feign:
 #      namespace: ${spring.cloud.nacos.config.namespace}
 #      group: DEFAULT_ZONE
 #      data-id: seata-server
+
