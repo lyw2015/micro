@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(value = "order", path = "/order")
 public interface OrderClient {
 
-    @GetMapping("/getOrderInfo")
-    AjaxResult getOrderInfo();
+    @GetMapping("saveOrder")
+    AjaxResult saveOrder();
+
+    @GetMapping("/getOrderInfoById")
+    AjaxResult getOrderInfoById(Long id);
 }

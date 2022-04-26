@@ -16,6 +16,7 @@
         <module>core-redis</module>
         <module>core-frame</module>
         <module>core-feign</module>
+        <module>core-mybatis</module>
     </modules>
 
     <properties>

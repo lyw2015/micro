@@ -7,8 +7,15 @@ server:
       enabled: true
 
 spring:
+  config:
+    import: classpath:mybatis.yaml
   application:
     name: order
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/micro-order?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+    username: root
+    password: root
   cloud:
     nacos:
       config:
@@ -68,3 +75,12 @@ spring:
 feign:
   sentinel:
     enabled: true
+
+#seata:
+#  application-id: ${spring.application.name}
+#  config:
+#    nacos:
+#      server-addr: ${spring.cloud.nacos.config.server-addr}
+#      namespace: ${spring.cloud.nacos.config.namespace}
+#      group: DEFAULT_ZONE
+#      data-id: seata-server
