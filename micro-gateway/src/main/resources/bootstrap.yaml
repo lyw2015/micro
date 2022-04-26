@@ -9,6 +9,7 @@ server:
 logging:
   level:
     com.laiyw.micro: debug
+    org.springframework.cloud.gateway: debug
 
 spring:
   application:
