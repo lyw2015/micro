@@ -6,9 +6,13 @@ server:
       charset: utf-8
       enabled: true
 
+logging:
+  level:
+    com.laiyw.micro: debug
+
 spring:
   config:
-    import: classpath:mybatis.yaml
+    import: classpath:mybatis.yaml, classpath:feign.yaml
   application:
     name: portal
   datasource:

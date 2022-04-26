@@ -6,6 +6,10 @@ server:
       charset: utf-8
       enabled: true
 
+logging:
+  level:
+    com.laiyw.micro: debug
+
 spring:
   application:
     name: gateway

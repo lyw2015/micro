@@ -8,6 +8,6 @@ feign:
     response:
       enabled: false
   httpclient:
-    enabled: true
+    enabled: false
     connection-timeout: 2000
     max-connections: 200

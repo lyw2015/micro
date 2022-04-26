@@ -18,6 +18,6 @@ public class FeignInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
-        log.debug("{} - {}", requestTemplate.method(), requestTemplate.url());
+
     }
 }
