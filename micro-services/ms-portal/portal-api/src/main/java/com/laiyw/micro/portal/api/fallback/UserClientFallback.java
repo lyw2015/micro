@@ -1,9 +1,12 @@
 package com.laiyw.micro.portal.api.fallback;
 
-import com.laiyw.micro.frame.common.domain.AjaxResult;
 import com.laiyw.micro.portal.api.client.UserClient;
+import com.laiyw.micro.portal.api.vo.UserVo;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @ProjectName micro
@@ -15,26 +18,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserClientFallback implements FallbackFactory<UserClient> {
 
-    private AjaxResult error(final Throwable cause) {
-        return AjaxResult.error(cause.getMessage());
-    }
-
     @Override
     public UserClient create(final Throwable cause) {
         return new UserClient() {
             @Override
-            public AjaxResult listUsers() {
-                return error(cause);
+            public List<UserVo> listUsers() {
+                return Collections.emptyList();
             }
 
             @Override
-            public AjaxResult getUserById(Long id) {
-                return error(cause);
+            public UserVo getUserById(Long id) {
+                return new UserVo();
             }
 
             @Override
-            public AjaxResult deduction(Long id, Long money) {
-                return error(cause);
+            public boolean deduction(Long id, Long money) {
+                return false;
             }
         };
     }

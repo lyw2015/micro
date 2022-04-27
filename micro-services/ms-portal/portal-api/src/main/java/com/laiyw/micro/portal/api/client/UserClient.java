@@ -1,10 +1,12 @@
 package com.laiyw.micro.portal.api.client;
 
-import com.laiyw.micro.frame.common.domain.AjaxResult;
 import com.laiyw.micro.portal.api.fallback.UserClientFallback;
+import com.laiyw.micro.portal.api.vo.UserVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @ProjectName micro
@@ -16,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserClient {
 
     @GetMapping("/listUsers")
-    AjaxResult listUsers();
+    List<UserVo> listUsers();
 
     @GetMapping("/getUserById")
-    AjaxResult getUserById(Long id);
+    UserVo getUserById(Long id);
 
     @GetMapping("/deduction")
-    AjaxResult deduction(@RequestParam("id") Long id, @RequestParam("money") Long money);
+    boolean deduction(@RequestParam("id") Long id, @RequestParam("money") Long money);
 }

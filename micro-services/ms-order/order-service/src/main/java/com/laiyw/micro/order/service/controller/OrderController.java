@@ -2,7 +2,9 @@ package com.laiyw.micro.order.service.controller;
 
 import com.laiyw.micro.frame.common.controller.BaseController;
 import com.laiyw.micro.frame.common.domain.AjaxResult;
+import com.laiyw.micro.frame.common.utils.BeanUtils;
 import com.laiyw.micro.order.api.client.OrderClient;
+import com.laiyw.micro.order.api.vo.OrderVo;
 import com.laiyw.micro.order.service.domain.Order;
 import com.laiyw.micro.order.service.service.IOrderService;
 import com.laiyw.micro.portal.api.client.UserClient;
@@ -28,14 +30,15 @@ public class OrderController extends BaseController implements OrderClient {
     @Autowired
     private IOrderService orderService;
 
+    @Override
+    public OrderVo getOrderInfoById(Long id) {
+        Order order = orderService.getOrderInfoById(id);
+        return BeanUtils.createCopy(order, OrderVo.class);
+    }
+
     @GetMapping("saveOrder")
     public AjaxResult saveOrder() {
         return AjaxResult.success(orderService.saveOrder(Order.builder().build()));
-    }
-
-    @Override
-    public AjaxResult getOrderInfoById(Long id) {
-        return AjaxResult.success(orderService.getOrderInfoById(id));
     }
 
     @GetMapping("/listOrder")
@@ -45,6 +48,6 @@ public class OrderController extends BaseController implements OrderClient {
 
     @GetMapping("/getOrderUser")
     public AjaxResult getOrderUser() {
-        return userClient.listUsers();
+        return AjaxResult.success(userClient.listUsers());
     }
 }
