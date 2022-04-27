@@ -1,0 +1,28 @@
+logging:
+  level:
+    io.seata: debug
+
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}_tx_group
+  service:
+    disable-global-transaction: false
+    vgroup-mapping:
+      ${spring.application.name}_tx_group: default
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.config.server-addr}
+      namespace: ${spring.cloud.nacos.config.namespace}
+      group: SEATA_GROUP
+      data-id: seata-server
+  registry:
+    type: nacos
+    nacos:
+      cluster: default
+      server-addr: ${spring.cloud.nacos.config.server-addr}
+      namespace: ${spring.cloud.nacos.config.namespace}
+      group: SEATA_GROUP
+      application: seata-server

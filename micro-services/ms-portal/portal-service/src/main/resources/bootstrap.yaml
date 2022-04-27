@@ -12,7 +12,7 @@ logging:
 
 spring:
   config:
-    import: classpath:mybatis.yaml, classpath:feign.yaml, classpath:sentinel.yaml
+    import: classpath:mybatis.yaml, classpath:feign.yaml, classpath:sentinel.yaml, classpath:seata.yaml
   application:
     name: portal
   datasource:

@@ -6,9 +6,10 @@ import com.laiyw.micro.frame.common.exception.ServiceException;
 import com.laiyw.micro.portal.service.domain.User;
 import com.laiyw.micro.portal.service.mapper.UserMapper;
 import com.laiyw.micro.portal.service.service.IUserService;
+import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  * @CreateTime 2022/4/15 17:19
  * @Description TODO
  */
-@Transactional
+@Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
@@ -37,6 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean deduction(Long id, Long money) {
+        log.info("全局事务ID: {}", RootContext.getXID());
         User user = this.getById(id);
         if (user.getMoney() < money) {
             throw new ServiceException("余额不足");

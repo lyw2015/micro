@@ -18,6 +18,7 @@
         <module>core-feign</module>
         <module>core-mybatis</module>
         <module>core-sentinel</module>
+        <module>core-seata</module>
     </modules>
 
     <properties>

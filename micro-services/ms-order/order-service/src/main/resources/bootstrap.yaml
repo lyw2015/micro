@@ -12,7 +12,7 @@ logging:
 
 spring:
   config:
-    import: classpath:mybatis.yaml, classpath:feign.yaml, classpath:sentinel.yaml
+    import: classpath:mybatis.yaml, classpath:feign.yaml, classpath:sentinel.yaml, classpath:seata.yaml
   application:
     name: order
   datasource:
@@ -36,13 +36,3 @@ spring:
 feign:
   sentinel:
     enabled: true
-
-seata:
-  enabled: false
-  application-id: ${spring.application.name}
-  config:
-    nacos:
-      server-addr: ${spring.cloud.nacos.config.server-addr}
-      namespace: ${spring.cloud.nacos.config.namespace}
-      group: DEFAULT_ZONE
-      data-id: seata-server

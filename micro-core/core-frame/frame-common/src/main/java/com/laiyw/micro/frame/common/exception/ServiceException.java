@@ -10,17 +10,34 @@ package com.laiyw.micro.frame.common.exception;
 public class ServiceException extends RuntimeException {
 
     private int code = 500;
-    private String msg;
+    private String message;
 
     public ServiceException() {
     }
 
-    public ServiceException(String msg) {
-        this.msg = msg;
+    public ServiceException(String message) {
+        this.message = message;
     }
 
-    public ServiceException(int code, String msg) {
+    public ServiceException(int code, String message) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
