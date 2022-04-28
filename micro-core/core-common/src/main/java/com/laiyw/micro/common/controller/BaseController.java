@@ -1,6 +1,6 @@
-package com.laiyw.micro.frame.common.controller;
+package com.laiyw.micro.common.controller;
 
-import com.laiyw.micro.frame.common.domain.AjaxResult;
+import com.laiyw.micro.common.domain.AjaxResult;
 
 /**
  * @ProjectName micro

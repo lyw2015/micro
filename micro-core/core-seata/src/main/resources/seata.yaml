@@ -1,7 +1,3 @@
-logging:
-  level:
-    io.seata: debug
-
 seata:
   enabled: true
   enable-auto-data-source-proxy: true

@@ -6,7 +6,7 @@
     <parent>
         <artifactId>micro-services</artifactId>
         <groupId>com.laiyw.micro</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>ms-order</artifactId>
@@ -16,10 +16,5 @@
         <module>order-api</module>
         <module>order-service</module>
     </modules>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
 
 </project>

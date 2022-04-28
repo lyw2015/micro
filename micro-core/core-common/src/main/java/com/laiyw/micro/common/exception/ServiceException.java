@@ -1,4 +1,4 @@
-package com.laiyw.micro.frame.common.exception;
+package com.laiyw.micro.common.exception;
 
 /**
  * @ProjectName micro

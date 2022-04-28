@@ -2,7 +2,7 @@ package com.laiyw.micro.portal.service.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.laiyw.micro.frame.common.exception.ServiceException;
+import com.laiyw.micro.common.exception.ServiceException;
 import com.laiyw.micro.portal.service.domain.User;
 import com.laiyw.micro.portal.service.mapper.UserMapper;
 import com.laiyw.micro.portal.service.service.IUserService;

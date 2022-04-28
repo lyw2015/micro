@@ -5,7 +5,7 @@
     <parent>
         <artifactId>micro-modules</artifactId>
         <groupId>com.laiyw.micro</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>ms-notify</artifactId>
@@ -13,15 +13,7 @@
     <name>ms-notify</name>
     <description>ms-notify</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>com.laiyw.micro</groupId>
-            <artifactId>frame-service</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.laiyw.micro</groupId>
             <artifactId>ms-mq</artifactId>

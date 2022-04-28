@@ -1,4 +1,4 @@
-package com.laiyw.micro.frame.common.utils;
+package com.laiyw.micro.common.utils;
 
 /**
  * @ProjectName micro

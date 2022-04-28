@@ -1,6 +1,6 @@
 package com.laiyw.micro.seata.aspect;
 
-import com.laiyw.micro.frame.common.utils.StringUtils;
+import com.laiyw.micro.common.utils.StringUtils;
 import io.seata.core.context.RootContext;
 import io.seata.core.exception.TransactionException;
 import io.seata.tm.api.GlobalTransactionContext;

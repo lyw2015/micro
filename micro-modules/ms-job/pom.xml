@@ -5,7 +5,7 @@
     <parent>
         <artifactId>micro-modules</artifactId>
         <groupId>com.laiyw.micro</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>ms-job</artifactId>
@@ -13,15 +13,12 @@
     <name>ms-job</name>
     <description>ms-job</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.laiyw.micro</groupId>
-            <artifactId>frame-service</artifactId>
+            <artifactId>core-common</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>

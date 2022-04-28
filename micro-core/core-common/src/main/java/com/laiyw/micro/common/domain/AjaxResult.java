@@ -1,4 +1,4 @@
-package com.laiyw.micro.frame.common.domain;
+package com.laiyw.micro.common.domain;
 
 import org.apache.commons.lang3.ObjectUtils;
 

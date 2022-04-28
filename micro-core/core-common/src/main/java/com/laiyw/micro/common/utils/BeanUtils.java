@@ -1,6 +1,6 @@
-package com.laiyw.micro.frame.common.utils;
+package com.laiyw.micro.common.utils;
 
-import com.laiyw.micro.frame.common.exception.ServiceException;
+import com.laiyw.micro.common.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.beans.BeanCopier;
 

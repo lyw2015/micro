@@ -1,8 +1,8 @@
 package com.laiyw.micro.order.service.controller;
 
-import com.laiyw.micro.frame.common.controller.BaseController;
-import com.laiyw.micro.frame.common.domain.AjaxResult;
-import com.laiyw.micro.frame.common.utils.BeanUtils;
+import com.laiyw.micro.common.controller.BaseController;
+import com.laiyw.micro.common.domain.AjaxResult;
+import com.laiyw.micro.common.utils.BeanUtils;
 import com.laiyw.micro.order.api.client.OrderClient;
 import com.laiyw.micro.order.api.vo.OrderVo;
 import com.laiyw.micro.order.service.domain.Order;

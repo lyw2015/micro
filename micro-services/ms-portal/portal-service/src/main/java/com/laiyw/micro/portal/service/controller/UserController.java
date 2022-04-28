@@ -1,7 +1,7 @@
 package com.laiyw.micro.portal.service.controller;
 
-import com.laiyw.micro.frame.common.controller.BaseController;
-import com.laiyw.micro.frame.common.utils.BeanUtils;
+import com.laiyw.micro.common.controller.BaseController;
+import com.laiyw.micro.common.utils.BeanUtils;
 import com.laiyw.micro.portal.api.client.UserClient;
 import com.laiyw.micro.portal.api.vo.UserVo;
 import com.laiyw.micro.portal.service.service.IUserService;

@@ -55,7 +55,3 @@ mybatis-plus:
     db-config:
       id-type: assign_id
     banner: true
-
-logging:
-  level:
-    org.apache.ibatis: debug
