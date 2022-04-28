@@ -9,7 +9,6 @@ import com.laiyw.micro.order.service.domain.Order;
 import com.laiyw.micro.order.service.service.IOrderService;
 import com.laiyw.micro.portal.api.client.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @CreateTime 2022/4/19 14:56
  * @Description TODO
  */
-@RefreshScope
 @RestController
 @RequestMapping("/order")
 public class OrderController extends BaseController implements OrderClient {
