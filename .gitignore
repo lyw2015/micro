@@ -1,5 +1,6 @@
-# 项目排除路径
-target
+HELP.md
+target/
+.mvn
 
 ### nacos ###
 nacos/logs/
@@ -7,6 +8,7 @@ nacos/target/
 nacos/data/
 nacos/bin/logs/
 
+### seata ###
 seata/logs/
 
 ### IntelliJ IDEA ###
@@ -14,3 +16,25 @@ seata/logs/
 *.iws
 *.iml
 *.ipr
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
