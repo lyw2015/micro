@@ -1,18 +1,11 @@
 server:
   port: 9091
-  servlet:
-    encoding:
-      force: true
-      charset: utf-8
-      enabled: true
 
 logging:
   level:
     com.laiyw.micro: debug
 
 spring:
-  config:
-    import: classpath:mybatis.yaml, classpath:feign.yaml, classpath:sentinel.yaml, classpath:seata.yaml
   application:
     name: order
   datasource:
@@ -26,10 +19,15 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: 18808baf-2238-4f27-be8b-6cfa3680a0a2
         file-extension: yaml
+        extension-configs:
+          - data-id: public-config.yaml
+            group: DEFAULT_GROUP
+            refresh: true
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
     sentinel:
+      enabled: true
       transport:
         dashboard: 127.0.0.1:8858
 

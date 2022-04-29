@@ -1,7 +1,7 @@
 spring:
   cloud:
     sentinel:
-      enabled: true
+      enabled: false
       eager: true
       transport:
         dashboard: 127.0.0.1:8858

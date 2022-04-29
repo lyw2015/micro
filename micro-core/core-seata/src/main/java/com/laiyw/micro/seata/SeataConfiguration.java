@@ -1,5 +1,6 @@
 package com.laiyw.micro.seata;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
  * @Description TODO
  */
 
-@ComponentScan(basePackages = "com.laiyw.micro.seata")
 @Configuration
+@ComponentScan(basePackages = "com.laiyw.micro.seata")
+@ConditionalOnProperty(value = "seata.enabled", havingValue = "true")
 public class SeataConfiguration {
 }

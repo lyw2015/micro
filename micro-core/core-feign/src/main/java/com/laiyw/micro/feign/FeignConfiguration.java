@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
  * @Description TODO
  */
 
-@ComponentScan(basePackages = {"com.laiyw.micro.feign"})
 @Configuration
+@ComponentScan(basePackages = {"com.laiyw.micro.feign"})
 public class FeignConfiguration {
 
     @Bean
