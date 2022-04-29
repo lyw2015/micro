@@ -1,4 +1,11 @@
-# Druid
+server:
+  servlet:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+
+# Spring
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -55,3 +62,17 @@ mybatis-plus:
     db-config:
       id-type: assign_id
     banner: true
+
+# feign config
+feign:
+  compression:
+    request:
+      enabled: false
+      mime-types: text/xml, application/xml, application/json
+      min-request-size: 2048
+    response:
+      enabled: false
+  httpclient:
+    enabled: false
+    connection-timeout: 2000
+    max-connections: 200

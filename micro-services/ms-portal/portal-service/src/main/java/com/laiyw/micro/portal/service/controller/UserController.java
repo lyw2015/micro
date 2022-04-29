@@ -6,9 +6,6 @@ import com.laiyw.micro.portal.api.client.UserClient;
 import com.laiyw.micro.portal.api.vo.UserVo;
 import com.laiyw.micro.portal.service.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,13 +18,10 @@ import java.util.stream.Collectors;
  * @CreateTime 2022/4/15 17:17
  * @Description TODO
  */
-@RefreshScope
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController implements UserClient {
 
-    @Value("${user.init-password}")
-    private String initPassword;
     @Autowired
     private IUserService userService;
 
@@ -48,8 +42,4 @@ public class UserController extends BaseController implements UserClient {
         return userService.deduction(id, money);
     }
 
-    @GetMapping("/getInitPassword")
-    public String getInitPassword() {
-        return initPassword;
-    }
 }
