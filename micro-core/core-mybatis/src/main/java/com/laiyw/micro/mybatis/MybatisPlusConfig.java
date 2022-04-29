@@ -1,9 +1,13 @@
 package com.laiyw.micro.mybatis;
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.laiyw.micro.mybatis.handler.CustomMetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +20,9 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Slf4j
-@ComponentScan(basePackages = "com.laiyw.micro.mybatis")
 @Configuration
+@AutoConfigureBefore({DruidDataSourceAutoConfigure.class})
+@ComponentScan(basePackages = "com.laiyw.micro.mybatis")
 public class MybatisPlusConfig {
 
     /**
@@ -32,5 +37,15 @@ public class MybatisPlusConfig {
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return interceptor;
+    }
+
+    /**
+     * 自动填充
+     *
+     * @return MetaObjectHandler
+     */
+    @Bean
+    public MetaObjectHandler metaObjectHandler() {
+        return new CustomMetaObjectHandler();
     }
 }
