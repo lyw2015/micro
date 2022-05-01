@@ -34,7 +34,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     public Commodity randomCommodity() {
         Commodity commodity = Commodity.builder()
                 .name(RandomStringUtils.randomAlphanumeric(6))
-                .number(RandomUtils.nextLong(1, 99999))
+                .number(RandomUtils.nextLong(1, 1000))
                 .description(RandomStringUtils.randomAlphanumeric(50))
                 .build();
         commodityMapper.insert(commodity);
@@ -50,7 +50,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     public boolean updateCommodityStock(Long id, Long number) {
         log.info("全局事务ID: {}", RootContext.getXID());
         Commodity commodity = getById(id);
-        log.info("当前库存: {}", commodity.getNumber());
+        log.info("商品【{}】当前库存: {}", commodity.getName(), commodity.getNumber());
         log.info("扣减库存: {}", number);
         if (commodity.getNumber() < number) {
             throw new ServiceException("库存不足");

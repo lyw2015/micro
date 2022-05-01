@@ -36,7 +36,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public Order buy() {
         log.info("全局事务ID: {}", RootContext.getXID());
         // 随机商品数量
-        long number = RandomUtils.nextLong(0, 10);
+        long number = RandomUtils.nextLong(1, 10);
         Order order = Order.builder()
                 .orderId(UUID.randomUUID().toString())
                 .commodityId(1L)

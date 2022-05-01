@@ -40,6 +40,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public boolean deduction(Long id, Long money) {
         log.info("全局事务ID: {}", RootContext.getXID());
         User user = this.getById(id);
+        log.info("用户【{}】当前余额: {}", user.getName(), user.getMoney());
+        log.info("扣减费用: {}", money);
         if (user.getMoney() < money) {
             throw new ServiceException("余额不足");
         }
