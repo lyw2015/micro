@@ -4,25 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>micro-core</artifactId>
-        <groupId>com.laiyw.micro</groupId>
+        <artifactId>ms-stock</artifactId>
+        <groupId>com.laiyw.micro.stock</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>core-redis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>core-redis</name>
+    <artifactId>stock-api</artifactId>
     <packaging>jar</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>stock-api</name>
+    <description>stock-api</description>
 
     <dependencies>
         <dependency>
             <groupId>com.laiyw.micro</groupId>
-            <artifactId>core-common</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <artifactId>core-feign</artifactId>
         </dependency>
     </dependencies>
 

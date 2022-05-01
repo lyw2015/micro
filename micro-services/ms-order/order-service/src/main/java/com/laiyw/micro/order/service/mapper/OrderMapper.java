@@ -7,9 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * @ProjectName micro
  * @Author Laiyw
- * @CreateTime 2022/4/25 15:06
+ * @CreateTime 2022/4/30 15:06
  * @Description TODO
  */
+
 @Mapper
 public interface OrderMapper extends BaseMapper<Order> {
 

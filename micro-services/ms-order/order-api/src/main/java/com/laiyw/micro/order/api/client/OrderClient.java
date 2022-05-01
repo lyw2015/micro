@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(value = "order", path = "/order")
 public interface OrderClient {
 
-    @GetMapping("/getOrderInfoById")
-    OrderVo getOrderInfoById(Long id);
+    @GetMapping("/getOrderById")
+    OrderVo getOrderById(Long id);
 }

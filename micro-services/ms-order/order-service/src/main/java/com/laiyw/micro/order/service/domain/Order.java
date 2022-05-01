@@ -11,12 +11,12 @@ import lombok.EqualsAndHashCode;
 /**
  * @ProjectName micro
  * @Author Laiyw
- * @CreateTime 2022/4/25 14:46
+ * @CreateTime 2022/4/30 10:25
  * @Description TODO
  */
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @TableName("micro_order")
 public class Order extends BaseModel<Order> {
@@ -24,9 +24,11 @@ public class Order extends BaseModel<Order> {
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    private String name;
+    private String orderId;
+
+    private Long commodityId;
 
     private Long number;
 
-    private String description;
+    private Long money;
 }

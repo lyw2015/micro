@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ms-order</artifactId>
-        <groupId>com.laiyw.micro</groupId>
+        <artifactId>ms-stock</artifactId>
+        <groupId>com.laiyw.micro.stock</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.laiyw.micro.order</groupId>
-    <artifactId>order-service</artifactId>
+    <artifactId>stock-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>order-service</name>
-    <description>order-service</description>
+    <name>stock-service</name>
+    <description>stock-service</description>
 
     <dependencies>
-        <dependency>
-            <groupId>com.laiyw.micro.order</groupId>
-            <artifactId>order-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.laiyw.micro.portal</groupId>
-            <artifactId>portal-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>com.laiyw.micro.stock</groupId>
             <artifactId>stock-api</artifactId>
@@ -32,8 +22,7 @@
         </dependency>
         <dependency>
             <groupId>com.laiyw.micro</groupId>
-            <artifactId>ms-mq</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>core-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>com.laiyw.micro</groupId>

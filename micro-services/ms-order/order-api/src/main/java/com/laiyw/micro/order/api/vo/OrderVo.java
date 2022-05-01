@@ -8,20 +8,21 @@ import java.util.Date;
 /**
  * @ProjectName micro
  * @Author Laiyw
- * @CreateTime 2022/4/27 8:57
+ * @CreateTime 2022/4/30 15:27
  * @Description TODO
  */
-
 @Data
 public class OrderVo {
 
     private Long id;
 
-    private String name;
+    private String orderId;
+
+    private Long commodityId;
 
     private Long number;
 
-    private String description;
+    private Long money;
 
     private String createBy;
 
@@ -32,5 +33,4 @@ public class OrderVo {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-
 }

@@ -1,0 +1,43 @@
+server:
+  port: 9092
+
+logging:
+  level:
+    com.laiyw.micro: debug
+
+spring:
+  application:
+    name: stock
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/micro-stock?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+    username: root
+    password: root
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 18808baf-2238-4f27-be8b-6cfa3680a0a2
+        file-extension: yaml
+        # 加载Nacos中的组件配置，需要定制可重写；也可以不引入重配
+        extension-configs:
+          - data-id: common.yaml
+            group: COMMON_CONFIG_GROUP
+            refresh: true
+          - data-id: seata.yaml
+            group: COMMON_CONFIG_GROUP
+            refresh: true
+          - data-id: sentinel.yaml
+            group: COMMON_CONFIG_GROUP
+            refresh: true
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
+    sentinel:
+      enabled: true
+      transport:
+        dashboard: 127.0.0.1:8858
+
+feign:
+  sentinel:
+    enabled: true
