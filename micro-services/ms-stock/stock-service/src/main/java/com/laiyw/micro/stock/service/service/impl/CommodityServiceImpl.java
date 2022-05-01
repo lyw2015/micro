@@ -6,6 +6,7 @@ import com.laiyw.micro.common.exception.ServiceException;
 import com.laiyw.micro.stock.service.domain.Commodity;
 import com.laiyw.micro.stock.service.mapper.CommodityMapper;
 import com.laiyw.micro.stock.service.service.ICommodityService;
+import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -47,6 +48,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
 
     @Override
     public boolean updateCommodityStock(Long id, Long number) {
+        log.info("全局事务ID: {}", RootContext.getXID());
         Commodity commodity = getById(id);
         log.info("当前库存: {}", commodity.getNumber());
         log.info("扣减库存: {}", number);
