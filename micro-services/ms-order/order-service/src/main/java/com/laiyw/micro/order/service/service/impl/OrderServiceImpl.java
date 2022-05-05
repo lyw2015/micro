@@ -1,5 +1,6 @@
 package com.laiyw.micro.order.service.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laiyw.micro.order.service.domain.Order;
 import com.laiyw.micro.order.service.mapper.OrderMapper;
@@ -12,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 /**
  * @ProjectName micro
@@ -38,7 +37,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 随机商品数量
         long number = RandomUtils.nextLong(1, 10);
         Order order = Order.builder()
-                .orderId(UUID.randomUUID().toString())
+                .orderId(IdUtil.getSnowflakeNextIdStr())
                 .commodityId(1L)
                 .number(number)
                 .money(number * 2).build();
