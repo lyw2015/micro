@@ -11,6 +11,8 @@ import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ import java.util.List;
 @Service
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements ICommodityService {
 
+    @Autowired
+    private RedissonClient redissonClient;
     @Autowired
     private CommodityMapper commodityMapper;
 
@@ -49,13 +53,19 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Override
     public boolean updateCommodityStock(Long id, Long number) {
         log.info("全局事务ID: {}", RootContext.getXID());
-        Commodity commodity = getById(id);
-        log.info("商品【{}】当前库存: {}", commodity.getName(), commodity.getNumber());
-        log.info("扣减库存: {}", number);
-        if (commodity.getNumber() < number) {
-            throw new ServiceException("库存不足");
+        RLock rLock = redissonClient.getLock(String.format("commodity_%d", id));
+        try {
+            rLock.lock();
+            Commodity commodity = getById(id);
+            log.info("商品【{}】当前库存: {}", commodity.getName(), commodity.getNumber());
+            log.info("扣减库存: {}", number);
+            if (commodity.getNumber() < number) {
+                throw new ServiceException("库存不足");
+            }
+            commodity.setNumber(commodity.getNumber() - number);
+            return updateById(commodity);
+        } finally {
+            rLock.unlock();
         }
-        commodity.setNumber(commodity.getNumber() - number);
-        return updateById(commodity);
     }
 }
