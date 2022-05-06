@@ -76,3 +76,8 @@ feign:
     enabled: false
     connection-timeout: 2000
     max-connections: 200
+
+# Uid Generator
+uid-generator:
+  server: 127.0.0.1:8888
+  token: e296e6cc98d84c40b2d9f7b86287c6e6

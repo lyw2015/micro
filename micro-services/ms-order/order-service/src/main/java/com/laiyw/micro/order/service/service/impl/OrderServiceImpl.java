@@ -1,7 +1,7 @@
 package com.laiyw.micro.order.service.service.impl;
 
-import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.laiyw.micro.common.utils.UidGenerator;
 import com.laiyw.micro.order.service.domain.Order;
 import com.laiyw.micro.order.service.mapper.OrderMapper;
 import com.laiyw.micro.order.service.service.IOrderService;
@@ -26,6 +26,8 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
 
     @Autowired
+    private UidGenerator generator;
+    @Autowired
     private UserClient userClient;
     @Autowired
     private CommodityClient commodityClient;
@@ -37,7 +39,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 随机商品数量
         long number = RandomUtils.nextLong(1, 10);
         Order order = Order.builder()
-                .orderId(IdUtil.getSnowflakeNextIdStr())
+                .orderId(generator.getUID())
                 .commodityId(1L)
                 .number(number)
                 .money(number * 2).build();
