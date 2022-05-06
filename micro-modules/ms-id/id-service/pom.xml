@@ -1,56 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>ms-order</artifactId>
+        <artifactId>ms-id</artifactId>
         <groupId>com.laiyw.micro</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.laiyw.micro.order</groupId>
-    <artifactId>order-service</artifactId>
+    <groupId>com.laiyw.micro.id</groupId>
+    <artifactId>id-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>order-service</name>
-    <description>order-service</description>
+    <name>id-service</name>
+    <description>id-service</description>
 
     <dependencies>
-        <dependency>
-            <groupId>com.laiyw.micro.order</groupId>
-            <artifactId>order-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.laiyw.micro.portal</groupId>
-            <artifactId>portal-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.laiyw.micro.stock</groupId>
-            <artifactId>stock-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.laiyw.micro</groupId>
-            <artifactId>ms-mq</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.laiyw.micro</groupId>
-            <artifactId>core-mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.laiyw.micro</groupId>
-            <artifactId>core-sentinel</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.laiyw.micro</groupId>
-            <artifactId>core-seata</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.laiyw.micro.id</groupId>
             <artifactId>id-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.laiyw.micro</groupId>
+            <artifactId>core-mybatis</artifactId>
         </dependency>
 
         <dependency>
@@ -87,5 +61,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

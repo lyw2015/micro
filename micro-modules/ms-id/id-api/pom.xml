@@ -4,19 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>micro</artifactId>
+        <artifactId>ms-id</artifactId>
         <groupId>com.laiyw.micro</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>micro-modules</artifactId>
-    <packaging>pom</packaging>
+    <groupId>com.laiyw.micro.id</groupId>
+    <artifactId>id-api</artifactId>
+    <packaging>jar</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>id-api</name>
+    <description>id-api</description>
 
-    <modules>
-        <module>ms-job</module>
-        <module>ms-mq</module>
-        <module>ms-notify</module>
-        <module>ms-id</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.laiyw.micro</groupId>
+            <artifactId>core-feign</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

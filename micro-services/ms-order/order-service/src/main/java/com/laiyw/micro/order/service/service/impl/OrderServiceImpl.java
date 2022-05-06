@@ -1,7 +1,8 @@
 package com.laiyw.micro.order.service.service.impl;
 
+import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.laiyw.micro.common.utils.UidGenerator;
+import com.laiyw.micro.id.api.client.IdClient;
 import com.laiyw.micro.order.service.domain.Order;
 import com.laiyw.micro.order.service.mapper.OrderMapper;
 import com.laiyw.micro.order.service.service.IOrderService;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
 
     @Autowired
-    private UidGenerator generator;
+    private IdClient idClient;
     @Autowired
     private UserClient userClient;
     @Autowired
@@ -39,7 +40,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 随机商品数量
         long number = RandomUtils.nextLong(1, 10);
         Order order = Order.builder()
-                .orderId(generator.getUID())
+                .orderId(Convert.toStr(idClient.cacheId()))
                 .commodityId(1L)
                 .number(number)
                 .money(number * 2).build();
