@@ -51,24 +51,13 @@
             <version>2.13.2.2</version>
         </dependency>
 
-        <!-- https://www.hutool.cn/docs/#/ -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-            <version>5.8.0.M4</version>
-        </dependency>
-
-        <!-- https://www.hutool.cn/docs/#/crypto/%E6%A6%82%E8%BF%B0 -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-crypto</artifactId>
-            <version>5.8.0.M4</version>
         </dependency>
-
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-http</artifactId>
-            <version>5.8.0.M4</version>
         </dependency>
 
     </dependencies>
