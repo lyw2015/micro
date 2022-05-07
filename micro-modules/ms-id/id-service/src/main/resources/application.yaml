@@ -42,27 +42,6 @@ spring:
       log-abandoned: true
       remove-abandoned: true
       remove-abandoned-timeout: 120
-      web-stat-filter:
-        enabled: true
-        profile-enable: true
-        url-pattern: /*
-        stat-view-servlet:
-          reset-enable: true
-          enabled: true
-          # 设置白名单，不填则允许所有访问
-          allow:
-          url-pattern: /druid/*
-          login-username: druid
-          login-password: druid
-        filter:
-          stat:
-            enabled: true
-            log-slow-sql: true
-            slow-sql-millis: 1000
-            merge-sql: true
-          wall:
-            config:
-              multi-statement-allow: true
   cloud:
     nacos:
       config:

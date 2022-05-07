@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @ProjectName micro
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@Transactional(rollbackFor = {Exception.class})
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
 
     @Autowired

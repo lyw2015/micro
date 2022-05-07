@@ -7,7 +7,6 @@ import com.laiyw.micro.stock.service.domain.Commodity;
 import com.laiyw.micro.stock.service.mapper.CommodityMapper;
 import com.laiyw.micro.stock.service.service.ICommodityService;
 import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -15,6 +14,7 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +26,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
+@Transactional(rollbackFor = {Exception.class})
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements ICommodityService {
 
     @Autowired
@@ -33,7 +34,6 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Autowired
     private CommodityMapper commodityMapper;
 
-    @GlobalTransactional
     @Override
     public Commodity randomCommodity() {
         Commodity commodity = Commodity.builder()

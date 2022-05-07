@@ -10,6 +10,7 @@ import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
+@Transactional(rollbackFor = {Exception.class})
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Autowired
@@ -39,7 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public boolean deduction(Long id, Long money) {
         log.info("全局事务ID: {}", RootContext.getXID());
-        User user = this.getById(id);
+        User user = getById(id);
         log.info("用户【{}】当前余额: {}", user.getName(), user.getMoney());
         log.info("扣减费用: {}", money);
         if (user.getMoney() < money) {
