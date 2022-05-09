@@ -22,7 +22,6 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = {Exception.class})
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Autowired
@@ -38,6 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.selectById(id);
     }
 
+    @Transactional(rollbackFor = {Exception.class})
     @Override
     public boolean deduction(Long id, Long money) {
         log.info("全局事务ID: {}", RootContext.getXID());

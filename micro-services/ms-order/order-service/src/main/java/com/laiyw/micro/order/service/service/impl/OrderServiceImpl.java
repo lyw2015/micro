@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-@Transactional(rollbackFor = {Exception.class})
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
 
     @Autowired
@@ -36,6 +35,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private CommodityClient commodityClient;
 
     @GlobalTransactional
+    @Transactional(rollbackFor = {Exception.class})
     @Override
     public Order buy() {
         log.info("全局事务ID: {}", RootContext.getXID());

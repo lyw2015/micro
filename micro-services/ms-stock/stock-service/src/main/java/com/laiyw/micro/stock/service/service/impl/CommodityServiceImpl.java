@@ -26,7 +26,6 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = {Exception.class})
 public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements ICommodityService {
 
     @Autowired
@@ -34,6 +33,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Autowired
     private CommodityMapper commodityMapper;
 
+    @Transactional(rollbackFor = {Exception.class})
     @Override
     public Commodity randomCommodity() {
         Commodity commodity = Commodity.builder()
@@ -50,6 +50,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         return commodityMapper.selectList(new QueryWrapper<>());
     }
 
+    @Transactional(rollbackFor = {Exception.class})
     @Override
     public boolean updateCommodityStock(Long id, Long number) {
         log.info("全局事务ID: {}", RootContext.getXID());
