@@ -50,7 +50,7 @@ public class DynamicDataSourceInterceptor implements Interceptor {
     public Object intercept(Invocation invocation) throws Throwable {
         boolean synchronizationActive = TransactionSynchronizationManager.isSynchronizationActive();
         log.debug("当前方法是否已开启事务: {}", synchronizationActive);
-        DynamicDataSourceType dataSourceType = DynamicDataSourceType.MASTER;
+        DynamicDataSourceType dataSourceType = DynamicDataSourceType.master;
         if (!synchronizationActive) {
             Object[] objects = invocation.getArgs();
             MappedStatement mappedStatement = (MappedStatement) objects[0];
@@ -62,7 +62,7 @@ public class DynamicDataSourceInterceptor implements Interceptor {
                     String sql = boundSql.getSql().toLowerCase(Locale.CHINA).replaceAll("[\\t\\n\\r]", " ");
                     if (!sql.matches(REGEX)) {
                         // 这里如果有多个从数据库，则添加挑选过程
-                        dataSourceType = DynamicDataSourceType.SLAVE;
+                        dataSourceType = DynamicDataSourceType.slave;
                     }
                 }
             }

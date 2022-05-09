@@ -21,7 +21,7 @@ public class DynamicDatasourceHolder {
     }
 
     public static DynamicDataSourceType getDatasourceType() {
-        return ObjectUtils.defaultIfNull(THREAD_LOCAL.get(), DynamicDataSourceType.MASTER);
+        return ObjectUtils.defaultIfNull(THREAD_LOCAL.get(), DynamicDataSourceType.master);
     }
 
     public static void clearDatasourceType() {

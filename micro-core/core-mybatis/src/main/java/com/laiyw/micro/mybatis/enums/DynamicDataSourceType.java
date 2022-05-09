@@ -9,5 +9,5 @@ package com.laiyw.micro.mybatis.enums;
 
 public enum DynamicDataSourceType {
 
-    MASTER, SLAVE
+    master, slave
 }

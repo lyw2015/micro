@@ -2,20 +2,14 @@ package com.laiyw.micro.mybatis.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.util.Utils;
-import com.laiyw.micro.mybatis.dynamic.DynamicDataSource;
-import com.laiyw.micro.mybatis.enums.DynamicDataSourceType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import javax.servlet.*;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @ProjectName micro
@@ -26,32 +20,7 @@ import java.util.Map;
 
 @Slf4j
 @Configuration
-public class DynamicDruidConfig {
-
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.druid.master")
-    public DynamicDruidDataSource master() {
-        return new DynamicDruidDataSource();
-    }
-
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.druid.slave")
-    public DynamicDruidDataSource slave() {
-        return new DynamicDruidDataSource();
-    }
-
-    @Bean
-    @Primary
-    public DynamicDataSource dynamicDataSource() {
-        Map<Object, Object> targetDataSource = new HashMap<>(2);
-        targetDataSource.put(DynamicDataSourceType.MASTER, master());
-        targetDataSource.put(DynamicDataSourceType.SLAVE, slave());
-
-        DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        dynamicDataSource.setDefaultTargetDataSource(master());
-        dynamicDataSource.setTargetDataSources(targetDataSource);
-        return dynamicDataSource;
-    }
+public class DruidConfig {
 
     @Bean
     @ConditionalOnProperty(name = "spring.datasource.druid.stat-view-servlet.enabled", havingValue = "true")
