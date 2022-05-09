@@ -1,4 +1,4 @@
-# micro 微服务集成测试
+# Micro 微服务集成测试
 
 ## 使用版本
 ```
@@ -16,6 +16,16 @@ spring-cloud-alibaba: 2021.0.1.0
 
 RPC：OpenFeign
 
+熔断限流：Sentinel
+
+连接池：Druid
+
+缓存：Redis
+
 分布式事务：Seata
 
-熔断限流：Sentinel
+分布式锁：Redisson
+
+分布式ID：[uid-generator](micro-modules/ms-id)
+
+读写分离：[AbstractRoutingDataSource](micro-core/core-mybatis/src/main/java/com/laiyw/micro/mybatis/dynamic/DynamicDataSource.java) + [Mybatis Interceptor](micro-core/core-mybatis/src/main/java/com/laiyw/micro/mybatis/interceptor/DynamicDataSourceInterceptor.java)
