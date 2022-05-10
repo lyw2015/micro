@@ -7,6 +7,7 @@ nacos/logs/
 nacos/target/
 nacos/data/
 nacos/bin/logs/
+nacos/status/
 
 ### seata ###
 seata/logs/

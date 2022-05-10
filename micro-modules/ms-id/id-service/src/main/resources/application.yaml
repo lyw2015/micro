@@ -40,13 +40,13 @@ spring:
       min-evictable-idle-time-millis: 60000
       # 配置一个连接在池中最大生存的时间，单位是毫秒
       max-evictable-idle-time-millis: 900000
-      log-abandoned: true
-      remove-abandoned: true
+      log-abandoned: false
+      remove-abandoned: false
       remove-abandoned-timeout-millis: 120000
   cloud:
     nacos:
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: 192.168.47.1:8844
         namespace: 18808baf-2238-4f27-be8b-6cfa3680a0a2
         file-extension: yaml
       discovery:
