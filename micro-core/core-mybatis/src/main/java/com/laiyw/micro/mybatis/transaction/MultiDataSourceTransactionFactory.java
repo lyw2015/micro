@@ -4,7 +4,6 @@ import com.laiyw.micro.mybatis.dynamic.DynamicDataSource;
 import org.apache.ibatis.session.TransactionIsolationLevel;
 import org.apache.ibatis.transaction.Transaction;
 import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
@@ -14,8 +13,7 @@ import javax.sql.DataSource;
  * @CreateTime 2022/5/8 20:43
  * @Description TODO
  */
-
-@Component
+@Deprecated
 public class MultiDataSourceTransactionFactory extends SpringManagedTransactionFactory {
 
     @Override

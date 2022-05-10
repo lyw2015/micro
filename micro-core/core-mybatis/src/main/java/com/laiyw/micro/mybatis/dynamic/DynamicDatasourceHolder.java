@@ -2,7 +2,6 @@ package com.laiyw.micro.mybatis.dynamic;
 
 import com.laiyw.micro.mybatis.enums.DynamicDataSourceType;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * @ProjectName micro
@@ -21,7 +20,7 @@ public class DynamicDatasourceHolder {
     }
 
     public static DynamicDataSourceType getDatasourceType() {
-        return ObjectUtils.defaultIfNull(THREAD_LOCAL.get(), DynamicDataSourceType.master);
+        return THREAD_LOCAL.get();
     }
 
     public static void clearDatasourceType() {

@@ -24,7 +24,6 @@ import java.util.Locale;
  * @Description TODO
  */
 @Slf4j
-@Component
 @Intercepts({
         @Signature(
                 type = Executor.class,
@@ -42,6 +41,7 @@ import java.util.Locale;
                 args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}
         )
 })
+@Component
 public class DynamicDataSourceInterceptor implements Interceptor {
 
     private static final String REGEX = ".*insert\\u0020.*|.*delete\\u0020.*|.*update\\u0020.*";
@@ -61,7 +61,6 @@ public class DynamicDataSourceInterceptor implements Interceptor {
                     BoundSql boundSql = mappedStatement.getSqlSource().getBoundSql(objects[1]);
                     String sql = boundSql.getSql().toLowerCase(Locale.CHINA).replaceAll("[\\t\\n\\r]", " ");
                     if (!sql.matches(REGEX)) {
-                        // 这里如果有多个从数据库，则添加挑选过程
                         dataSourceType = DynamicDataSourceType.slave;
                     }
                 }

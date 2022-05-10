@@ -9,5 +9,11 @@ package com.laiyw.micro.mybatis.strategy;
 
 public interface SlaveChangeStrategy {
 
-    int select(int slaveNum);
+    /**
+     * 选取slave节点
+     *
+     * @param slaveCount slave节点总数
+     * @return
+     */
+    int selectSlaveNode(int slaveCount);
 }

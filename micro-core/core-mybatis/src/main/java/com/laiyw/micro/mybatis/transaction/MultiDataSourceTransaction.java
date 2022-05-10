@@ -20,31 +20,31 @@ import java.util.Set;
  * @Description TODO
  */
 @Slf4j
+@Deprecated
 public class MultiDataSourceTransaction implements Transaction {
 
     private final DynamicDataSource dataSource;
     private Connection mainConnection;
-    private DynamicDataSourceType mainDatabaseIdentification;
-    private Set<Connection> readConnections;
+    private DynamicDataSourceType dynamicDataSourceType;
+    private final Set<Connection> readConnections;
     private boolean isConnectionTransactional;
     private boolean autoCommit;
-
 
     public MultiDataSourceTransaction(DynamicDataSource dataSource) {
         this.dataSource = dataSource;
         this.readConnections = new HashSet<>();
-        mainDatabaseIdentification = DynamicDatasourceHolder.getDatasourceType();
+        dynamicDataSourceType = DynamicDatasourceHolder.getDatasourceType();
     }
-
 
     @Override
     public Connection getConnection() throws SQLException {
-        DynamicDataSourceType dynamicDataSourceType = DynamicDatasourceHolder.getDatasourceType();
-        if (null == dynamicDataSourceType || dynamicDataSourceType.equals(mainDatabaseIdentification)) {
-            if (mainConnection != null) return mainConnection;
-            else {
+        DynamicDataSourceType dataSourceType = DynamicDatasourceHolder.getDatasourceType();
+        if (null == dataSourceType || dataSourceType.equals(dynamicDataSourceType)) {
+            if (mainConnection != null) {
+                return mainConnection;
+            } else {
                 openMainConnection();
-                mainDatabaseIdentification = dynamicDataSourceType;
+                dynamicDataSourceType = dataSourceType;
                 return mainConnection;
             }
         } else {
@@ -56,31 +56,19 @@ public class MultiDataSourceTransaction implements Transaction {
                 throw new CannotGetJdbcConnectionException("Could not get JDBC Connection", ex);
             }
         }
-
     }
-
 
     private void openMainConnection() throws SQLException {
         this.mainConnection = DataSourceUtils.getConnection(this.dataSource);
         this.autoCommit = this.mainConnection.getAutoCommit();
         this.isConnectionTransactional = DataSourceUtils.isConnectionTransactional(this.mainConnection, this.dataSource);
-
-        if (log.isDebugEnabled()) {
-            log.debug(
-                    "JDBC Connection ["
-                            + this.mainConnection
-                            + "] will"
-                            + (this.isConnectionTransactional ? " " : " not ")
-                            + "be managed by Spring");
-        }
+        log.debug("JDBC Connection [{}] will" + (this.isConnectionTransactional ? " " : " not ") + "be managed by Spring", this.mainConnection);
     }
 
     @Override
     public void commit() throws SQLException {
         if (this.mainConnection != null && !this.isConnectionTransactional && !this.autoCommit) {
-            if (log.isDebugEnabled()) {
-                log.debug("Committing JDBC Connection [" + this.mainConnection + "]");
-            }
+            log.debug("Committing JDBC Connection [{}]", this.mainConnection);
             this.mainConnection.commit();
             for (Connection connection : readConnections) {
                 connection.commit();
@@ -91,9 +79,7 @@ public class MultiDataSourceTransaction implements Transaction {
     @Override
     public void rollback() throws SQLException {
         if (this.mainConnection != null && !this.isConnectionTransactional && !this.autoCommit) {
-            if (log.isDebugEnabled()) {
-                log.debug("Rolling back JDBC Connection [" + this.mainConnection + "]");
-            }
+            log.debug("Rolling back JDBC Connection [{}]", this.mainConnection);
             this.mainConnection.rollback();
             for (Connection connection : readConnections) {
                 connection.rollback();

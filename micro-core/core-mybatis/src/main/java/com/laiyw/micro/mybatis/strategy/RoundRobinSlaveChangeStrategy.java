@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @ProjectName micro
  * @Author Laiyw
  * @CreateTime 2022/5/8 20:38
- * @Description TODO
+ * @Description 轮询
  */
 
 public class RoundRobinSlaveChangeStrategy implements SlaveChangeStrategy {
@@ -18,8 +18,7 @@ public class RoundRobinSlaveChangeStrategy implements SlaveChangeStrategy {
     private final Lock lock = new ReentrantLock();
 
     @Override
-    public int select(int slaveNum) {
-        //轮询方式
+    public int selectSlaveNode(int slaveCount) {
         long currValue = counter.incrementAndGet();
         if ((currValue + 1) >= MAX_POOL) {
             lock.lock();
@@ -31,6 +30,6 @@ public class RoundRobinSlaveChangeStrategy implements SlaveChangeStrategy {
                 lock.unlock();
             }
         }
-        return (int) (currValue % slaveNum) + 1;
+        return (int) (currValue % slaveCount) + 1;
     }
 }

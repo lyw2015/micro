@@ -1,13 +1,16 @@
 package com.laiyw.micro.mybatis.dynamic;
 
 import com.laiyw.micro.mybatis.enums.DynamicDataSourceType;
+import com.laiyw.micro.mybatis.provide.DataSourceProvide;
 import com.laiyw.micro.mybatis.strategy.SlaveChangeStrategyFactory;
-import com.laiyw.micro.mybatis.strategy.YamlDataSourceProvide;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,29 +19,43 @@ import java.util.Map;
  * @CreateTime 2022/5/9 9:56
  * @Description TODO
  */
+@Slf4j
 @RefreshScope
 @Component
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
-    @Value("${spring.datasource.druid.slave-change-strategy}")
+    private static Map<Object, Object> targetDataSources = new HashMap<>();
+    private static int slaveNumber = 0;
+    @Value("${spring.datasource.druid.slave-change-strategy:loop}")
     private String slaveChangeStrategy;
+
+    @Autowired
+    public void setProvide(DataSourceProvide provide) {
+        targetDataSources = provide.initialize();
+        slaveNumber = targetDataSources.size() - 1;
+    }
 
     @Override
     protected Object determineCurrentLookupKey() {
         DynamicDataSourceType datasourceType = DynamicDatasourceHolder.getDatasourceType();
-        if (DynamicDataSourceType.master.equals(datasourceType)) {
-            return datasourceType;
+        if (null == datasourceType || DynamicDataSourceType.master.equals(datasourceType) || slaveNumber == 0) {
+            if (slaveNumber == 0) {
+                log.debug("无有效Slave数据源，改用Master数据源");
+            }
+            return DynamicDataSourceType.master;
         }
-        int index = SlaveChangeStrategyFactory.getSlaveChangeStrategy(slaveChangeStrategy).select(YamlDataSourceProvide.slaveNumber);
-        return YamlDataSourceProvide.targetDataSources.get("slave" + index);
+        int slaveNum = 1;
+        if (slaveNumber > 1) {
+            log.debug("Slave节点选举策略: {}", slaveChangeStrategy);
+            slaveNum = SlaveChangeStrategyFactory.getSlaveChangeStrategy(slaveChangeStrategy).selectSlaveNode(slaveNumber);
+        }
+        return targetDataSources.get(String.format("%s_%d", DynamicDataSourceType.slave.name(), slaveNum));
     }
 
     @Override
     public void afterPropertiesSet() {
-        Map<Object, Object> targetDataSources = YamlDataSourceProvide.targetDataSources;
-        DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        dynamicDataSource.setDefaultTargetDataSource(targetDataSources.get(DynamicDataSourceType.master.name()));
-        dynamicDataSource.setTargetDataSources(targetDataSources);
+        setDefaultTargetDataSource(targetDataSources.get(DynamicDataSourceType.master.name()));
+        setTargetDataSources(targetDataSources);
         super.afterPropertiesSet();
     }
 }

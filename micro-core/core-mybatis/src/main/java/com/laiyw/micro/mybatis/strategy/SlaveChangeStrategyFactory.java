@@ -20,10 +20,10 @@ public class SlaveChangeStrategyFactory {
     }
 
     public static SlaveChangeStrategy getSlaveChangeStrategy(String strategy) {
-        SlaveChangeStrategy scStrategy = STRATEGY_MAP.get(strategy);
-        if (null == scStrategy) {
-            throw new RuntimeException("从数据库没有策略" + strategy);
+        SlaveChangeStrategy slaveChangeStrategy = STRATEGY_MAP.get(strategy);
+        if (null == slaveChangeStrategy) {
+            throw new IllegalArgumentException("无效的数据库选取策略: " + strategy);
         }
-        return scStrategy;
+        return slaveChangeStrategy;
     }
 }
