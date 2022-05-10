@@ -2,9 +2,11 @@ package com.laiyw.micro.mybatis.provide;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import com.laiyw.micro.mybatis.config.DruidProperties;
 import com.laiyw.micro.mybatis.enums.DynamicDataSourceType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 
 import java.util.HashMap;
@@ -19,6 +21,9 @@ import java.util.Map;
 
 @Slf4j
 public abstract class DataSourceProvide {
+
+    @Autowired
+    protected DruidProperties druidProperties;
 
     public Map<Object, Object> initialize() {
         Map<String, DataSourceProperties> dataSourcePropertiesMap = provide();
@@ -49,7 +54,7 @@ public abstract class DataSourceProvide {
         druidDataSource.setUrl(properties.getUrl());
         druidDataSource.setUsername(properties.getUsername());
         druidDataSource.setPassword(properties.getPassword());
-        return druidDataSource;
+        return druidProperties.buildProperties(druidDataSource);
     }
 
     /**

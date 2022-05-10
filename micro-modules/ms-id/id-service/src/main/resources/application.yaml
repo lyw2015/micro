@@ -42,7 +42,7 @@ spring:
       max-evictable-idle-time-millis: 900000
       log-abandoned: true
       remove-abandoned: true
-      remove-abandoned-timeout: 120
+      remove-abandoned-timeout-millis: 120000
   cloud:
     nacos:
       config:
