@@ -38,10 +38,11 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     @Override
     protected Object determineCurrentLookupKey() {
         DynamicDataSourceType datasourceType = DynamicDatasourceHolder.getDatasourceType();
-        if (null == datasourceType || DynamicDataSourceType.master.equals(datasourceType) || slaveNumber == 0) {
-            if (slaveNumber == 0) {
-                log.debug("无有效Slave数据源，改用Master数据源");
-            }
+        if (null == datasourceType || DynamicDataSourceType.master.equals(datasourceType)) {
+            return DynamicDataSourceType.master;
+        }
+        if (slaveNumber == 0) {
+            log.debug("无有效Slave数据源，改用Master数据源");
             return DynamicDataSourceType.master;
         }
         int slaveNum = 1;
