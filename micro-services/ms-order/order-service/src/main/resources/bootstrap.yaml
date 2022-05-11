@@ -1,5 +1,10 @@
 server:
   port: 9091
+  servlet:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
 
 logging:
   level:
@@ -9,6 +14,7 @@ spring:
   application:
     name: order
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     druid:
       # 获取slave数据源方式：轮询:loop、随机:random，slave数据源只有一个时不生效
       slave-change-strategy: loop
@@ -23,31 +29,165 @@ spring:
           url: jdbc:mysql://192.168.47.112:3306/micro-order?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
           username: root
           password: root
+      # 初始连接数
+      initial-size: 5
+      # 最小连接池数量
+      min-idle: 10
+      # 最大连接池数量
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      max-evictable-idle-time-millis: 900000
+      # 配置检测连接是否有效
+      validation-query: select 1 from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      aop-patterns: com.laiyw.micro.*.service.impl.*
+      web-stat-filter:
+        enabled: true
+        profile-enable: true
+        url-pattern: /*
+      stat-view-servlet:
+        reset-enable: true
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
+        url-pattern: /druid/*
+        login-username: druid
+        login-password: druid
+      filter:
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: admin_123
+    database: 2
+    lettuce:
+      pool:
+        enabled: true
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+      shutdown-timeout: 100ms
   cloud:
     nacos:
       config:
-        server-addr: 192.168.47.112:8848
+        server-addr: 127.0.0.1:8848
         namespace: 18808baf-2238-4f27-be8b-6cfa3680a0a2
         file-extension: yaml
-        # 加载Nacos中的组件配置，需要定制可重写；也可以不引入重配
-        extension-configs:
-          - data-id: common.yaml
-            group: COMMON_CONFIG_GROUP
-            refresh: true
-          - data-id: seata.yaml
-            group: COMMON_CONFIG_GROUP
-            refresh: true
-          - data-id: sentinel.yaml
-            group: COMMON_CONFIG_GROUP
-            refresh: true
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
     sentinel:
       enabled: true
+      eager: true
       transport:
         dashboard: 127.0.0.1:8858
+      datasource:
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            group-id: SENTINEL_GROUP
+            data-id: ${spring.application.name}-flow
+            rule-type: flow
+            data-type: json
+          degrade:
+            nacos:
+              server-addr: ${spring.cloud.nacos.config.server-addr}
+              namespace: ${spring.cloud.nacos.config.namespace}
+              group-id: SENTINEL_GROUP
+              data-id: ${spring.application.name}-degrade
+              rule-type: degrade
+              data-type: json
+          param-flow:
+            nacos:
+              server-addr: ${spring.cloud.nacos.config.server-addr}
+              namespace: ${spring.cloud.nacos.config.namespace}
+              group-id: SENTINEL_GROUP
+              data-id: ${spring.application.name}-param-flow
+              rule-type: param-flow
+              data-type: json
+          authority:
+            nacos:
+              server-addr: ${spring.cloud.nacos.config.server-addr}
+              namespace: ${spring.cloud.nacos.config.namespace}
+              group-id: SENTINEL_GROUP
+              data-id: ${spring.application.name}-authority
+              rule-type: authority
+              data-type: json
+          system:
+            nacos:
+              server-addr: ${spring.cloud.nacos.config.server-addr}
+              namespace: ${spring.cloud.nacos.config.namespace}
+              group-id: SENTINEL_GROUP
+              data-id: ${spring.application.name}-system
+              rule-type: system
+              data-type: json
 
+# Mybatis
+mybatis-plus:
+  type-aliases-package: com.laiyw.micro.**.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+  global-config:
+    db-config:
+      id-type: assign_id
+    banner: true
+
+# feign config
 feign:
+  compression:
+    request:
+      enabled: false
+      mime-types: text/xml, application/xml, application/json
+      min-request-size: 2048
+    response:
+      enabled: false
+  httpclient:
+    enabled: false
+    connection-timeout: 2000
+    max-connections: 200
   sentinel:
     enabled: true
+
+# seata
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}_tx_group
+  service:
+    disable-global-transaction: false
+    vgroup-mapping:
+      ${spring.application.name}_tx_group: default
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.config.server-addr}
+      namespace: ${spring.cloud.nacos.config.namespace}
+      group: SEATA_GROUP
+      data-id: seata-server
+  registry:
+    type: nacos
+    nacos:
+      cluster: default
+      server-addr: ${spring.cloud.nacos.config.server-addr}
+      namespace: ${spring.cloud.nacos.config.namespace}
+      group: SEATA_GROUP
+      application: seata-server

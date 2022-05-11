@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  id-service:
+    restart: always
+    image: java:8
+    container_name: id-service
+    network_mode: host
+    environment:
+      TZ: Asia/Shanghai
+    working_dir: /data/apps/id-service
+    command: java -jar /data/apps/id-service/id-service-0.0.1-SNAPSHOT.jar
+
