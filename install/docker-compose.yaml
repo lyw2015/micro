@@ -1,0 +1,76 @@
+version: "3"
+
+services:
+  mysql:
+    restart: always
+    image: mysql:5.7
+    container_name: mysql
+    networks:
+      softnetwork:
+        ipv4_address: 172.16.47.6
+    ports:
+      - target: 3306
+        published: 3306
+        protocol: tcp
+        mode: host
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: root
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+    volumes:
+      - /data/mysql/conf:/etc/mysql/conf.d
+      - /data/mysql/data:/var/lib/mysql
+      - /data/mysql/logs:/var/log/mysql
+  redis:
+    restart: always
+    image: redis:6.2.7
+    container_name: redis
+    networks:
+      softnetwork:
+        ipv4_address: 172.16.47.79
+    ports:
+      - target: 6379
+        published: 6379
+        protocol: tcp
+        mode: host
+    environment:
+      TZ: Asia/Shanghai
+    command:
+      - redis-server
+      - /usr/local/etc/redis/redis.conf
+    volumes:
+      - /data/redis/conf:/usr/local/etc/redis
+      - /data/redis/data:/data
+      - /data/redis/logs:/logs
+  nacos:
+    restart: always
+    image: nacos/nacos-server
+    container_name: nacos
+    network_mode: host
+    ports:
+      - target: 8848
+        published: 8848
+        protocol: tcp
+        mode: host
+    environment:
+      PREFER_HOST_MODE: ip
+      MODE: cluster
+      NACOS_SERVERS: "192.168.47.1:8848,192.168.47.112:8848,192.168.47.113:8848"
+      NACOS_APPLICATION_PORT: 8848
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: 192.168.47.1
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
+      MYSQL_SERVICE_DB_NAME: micro-nacos
+
+networks:
+  softnetwork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.47.0/24
+          gateway: 172.16.47.1
