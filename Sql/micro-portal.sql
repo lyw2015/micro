@@ -1,17 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost
-Source Server Version : 50728
-Source Host           : localhost:3306
-Source Database       : micro-portal
-
-Target Server Type    : MYSQL
-Target Server Version : 50728
-File Encoding         : 65001
-
-Date: 2022-04-29 17:59:28
-*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -50,8 +36,3 @@ CREATE TABLE `undo_log` (
   `log_modified` datetime(6) NOT NULL COMMENT 'modify datetime',
   UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='AT transaction mode undo table';
-
--- ----------------------------
--- Records of undo_log
--- ----------------------------
-INSERT INTO `undo_log` VALUES ('7043886611364522985', '192.168.47.1:8091:7043886611364519645', 'serializer=kryo&compressorType=NONE', 0x2D01000000, '1', '2022-04-28 15:10:19.005992', '2022-04-28 15:10:19.005992');
