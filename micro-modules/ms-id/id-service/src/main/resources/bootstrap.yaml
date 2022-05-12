@@ -12,7 +12,7 @@ logging:
 
 spring:
   profiles:
-    active: test
+    active: dev
   application:
     name: id-generator
   datasource:

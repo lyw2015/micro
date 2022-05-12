@@ -9,7 +9,10 @@ services:
     working_dir: /data/apps/id-service
     environment:
       TZ: Asia/Shanghai
-    command: java -jar /data/apps/id-service/id-service-0.0.1-SNAPSHOT.jar
+      spring.profiles.active: test
+    command: java -jar /id-service/id-service-0.0.1-SNAPSHOT.jar
+    volumes:
+      - /data/apps/id-service:/id-service
   sentinel-dashboard:
     restart: always
     image: java:8
@@ -22,8 +25,10 @@ services:
       project.name: sentinel-dashboard
       sentinel.dashboard.auth.username: sentinel
       sentinel.dashboard.auth.password: sentinel
-      sentinel.dashboard.nacos.serverAddr: 127.0.0.1:8844
-      sentinel.dashboard.nacos.namespace: 18808baf-2238-4f27-be8b-6cfa3680a0a2
+      sentinel.dashboard.nacos.serverAddr: 192.168.47.112:8844
+      sentinel.dashboard.nacos.namespace: 960c12f6-0adc-4b2b-ac5e-83aee6f3a392
       sentinel.dashboard.nacos.groupId: SENTINEL_GROUP
-    command: java -jar /data/apps/sentinel-dashboard/sentinel-dashboard.jar
+    command: java -jar /sentinel-dashboard/sentinel-dashboard.jar
+    volumes:
+      - /data/apps/sentinel-dashboard:/sentinel-dashboard
 
