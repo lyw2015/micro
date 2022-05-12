@@ -11,16 +11,13 @@ logging:
     com.laiyw.micro: debug
 
 spring:
+  profiles:
+    active: test
   application:
     name: id-generator
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      data-sources:
-        master:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://127.0.0.1:3306/micro-uid-generator?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
-          username: root
-          password: root
       # 初始连接数
       initial-size: 2
       # 最小连接池数量
@@ -45,8 +42,6 @@ spring:
       remove-abandoned-timeout-millis: 120000
   cloud:
     nacos:
-      config:
-        server-addr: 127.0.0.1:8848
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}

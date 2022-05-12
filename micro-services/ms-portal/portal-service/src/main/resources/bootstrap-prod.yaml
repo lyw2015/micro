@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    druid:
+      # 获取slave数据源方式：轮询:loop、随机:random，slave数据源只有一个时不生效
+      slave-change-strategy: loop
+      data-sources:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.116.129:3306/micro-portal?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+          username: root
+          password: root
+        slave:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.116.130:3306/micro-portal?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+          username: root
+          password: root
+        slave2:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.116.131:3306/micro-portal?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+          username: root
+          password: root
+  redis:
+    host: 192.168.116.129
+    port: 6379
+    password: admin_123
+    database: 2
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.116.129:8844
+        namespace: c36cf098-f69b-40c9-baa1-be82ed1d94d9
+        file-extension: yaml
+    sentinel:
+      transport:
+        dashboard: 192.168.116.129:8858

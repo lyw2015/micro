@@ -69,7 +69,7 @@ services:
       - /data/redis/logs:/logs
   nacos:
     restart: always
-    image: nacos/nacos-server
+    image: nacos/nacos-server:2.0.3
     container_name: nacos
     network_mode: host
     ports:
@@ -77,13 +77,15 @@ services:
         published: 8848
         protocol: tcp
         mode: host
+    depends_on:
+      - mysql
     environment:
       PREFER_HOST_MODE: ip
       MODE: cluster
-      NACOS_SERVERS: "192.168.47.1:8848,192.168.47.112:8848,192.168.47.113:8848"
+      NACOS_SERVERS: "192.168.47.112:8848,192.168.47.113:8848,192.168.47.114:8848"
       NACOS_APPLICATION_PORT: 8848
       SPRING_DATASOURCE_PLATFORM: mysql
-      MYSQL_SERVICE_HOST: 192.168.47.1
+      MYSQL_SERVICE_HOST: 192.168.47.112
       MYSQL_SERVICE_PORT: 3306
       MYSQL_SERVICE_USER: root
       MYSQL_SERVICE_PASSWORD: root

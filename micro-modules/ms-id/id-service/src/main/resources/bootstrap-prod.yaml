@@ -1,6 +1,15 @@
 spring:
+  datasource:
+    druid:
+      data-sources:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.116.129:3306/micro-uid-generator?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+          username: root
+          password: root
   cloud:
     nacos:
       config:
+        server-addr: 192.168.116.129:8844
         namespace: c36cf098-f69b-40c9-baa1-be82ed1d94d9
         file-extension: yaml
