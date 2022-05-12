@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.116.129:8844
+        namespace: c36cf098-f69b-40c9-baa1-be82ed1d94d9
+        file-extension: yaml
+    sentinel:
+      transport:
+        dashboard: 192.168.116.129:8858

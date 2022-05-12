@@ -1,36 +1,26 @@
 # Micro 微服务集成测试
 
-## 使用版本
-```
-spring-boot: 2.6.3
+## 微服务版本
+- spring-boot: 2.6.3
+- spring-cloud: 2021.0.1
+- spring-cloud-alibaba: 2021.0.1.0
 
-spring-cloud: 2021.0.1
-
-spring-cloud-alibaba: 2021.0.1.0
-```
-
-## 使用组件：  
-网关：Gateway
-
-配置中心&服务注册与发现：Nacos
-
-RPC：OpenFeign
-
-熔断限流：Sentinel
-
-连接池：Druid
-
-缓存：Redis
-
-分布式事务：Seata
-
-分布式锁：Redisson
-
-分布式ID：[uid-generator](micro-modules/ms-id)
-
-* 使用Spring Boot重写百度的[uid-generator](https://github.com/baidu/uid-generator)
-* 使用Feign以及HTTP方式暴露ID获取API
-* 提取参数配置至yaml
+## 相关组件：
+- 网关：Gateway
+- 配置中心&服务注册与发现：Nacos
+- RPC：OpenFeign
+- 熔断限流：Sentinel
+  * 修改部分sentinel-dashboard源码，将规则配置保存到Nacos中
+- 连接池：Druid
+- 数据库：MySql
+- 缓存：Redis
+- 分布式事务：Seata
+  * 使用AT模式
+- 分布式锁：Redisson
+- 分布式ID：[uid-generator](micro-modules/ms-id)
+  * 使用Spring Boot重写百度的[uid-generator](https://github.com/baidu/uid-generator)
+  * 使用Feign以及HTTP方式暴露ID获取API
+  * 提取参数配置至yaml
 ```yaml
 # UID Generator
 uid-generator:
@@ -56,14 +46,12 @@ uid-generator:
   # 默认:不配置此项, 即不实用Schedule线程. 如需使用, 请指定Schedule线程时间间隔, 单位:秒
   scheduleInterval: 60
 ```
-
-读写分离：[AbstractRoutingDataSource](micro-core/core-mybatis/src/main/java/com/laiyw/micro/mybatis/dynamic/DynamicDataSource.java) + [Mybatis Interceptor](micro-core/core-mybatis/src/main/java/com/laiyw/micro/mybatis/interceptor/DynamicDataSourceInterceptor.java)
-
-* 实现一主多从
-* 实现多Slave下的获取方式配置；loop(轮询)、random(随机)
-* 可动态配置数据源，无需重启
-* 当有事务时默认使用Master库
-* master库必须配置，slave库按需配置(key可随意配置但不能重复；eg: slave, slave02, 112_ms)
+- 读写分离：[AbstractRoutingDataSource](micro-core/core-mybatis/src/main/java/com/laiyw/micro/mybatis/dynamic/DynamicDataSource.java) + [Mybatis Interceptor](micro-core/core-mybatis/src/main/java/com/laiyw/micro/mybatis/interceptor/DynamicDataSourceInterceptor.java)
+  * 实现一主多从
+  * 实现多Slave下的获取方式配置；loop(轮询)、random(随机)
+  * 可动态配置数据源，无需重启
+  * 当有事务时默认使用Master库
+  * master库必须配置，slave库按需配置(key可随意配置但不能重复；eg: slave, slave02, 112_ms)
 ```yaml
 spring:
   datasource:
@@ -87,3 +75,65 @@ spring:
           username: root
           password: root
 ```
+## 快速开始
+### 步骤1：环境准备
+- [Java8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [MySQL](https://dev.mysql.com/downloads/mysql/)
+- [Maven](https://maven.apache.org/download.cgi)
+- [Redis](https://github.com/redis/redis/tags)
+
+### 步骤2：建库
+在数据库中分别创建如下Schema，文件在[Sql](Sql)目录：
+- [micro-nacos](Sql/micro-nacos.sql)
+- [micro-order](Sql/micro-order.sql)
+- [micro-portal](Sql/micro-portal.sql)
+- [micro-seata](Sql/micro-seata.sql)
+- [micro-stock](Sql/micro-stock.sql)
+- [micro-uid-generator](Sql/micro-uid-generator.sql)
+
+### 步骤3：修改配置
+根据自身环境修改如下配置文件或者在Nacos的dev环境中修改，Nacos的配置会覆盖本地配置
+- [id-service](micro-modules/ms-id/id-service/src/main/resources/bootstrap-dev.yaml)
+- [gateway](micro-gateway/src/main/resources/bootstrap-dev.yaml)
+- [portal](micro-services/ms-portal/portal-service/src/main/resources/bootstrap-dev.yaml)
+- [stock](micro-services/ms-stock/stock-service/src/main/resources/bootstrap-dev.yaml)
+- [order](micro-services/ms-order/order-service/src/main/resources/bootstrap-dev.yaml)
+
+### 步骤4：中间件配置&启动
+- nacos
+  1. 下载[nacos](https://github.com/alibaba/nacos/tags), 解压后将target目录拷贝至micro/nacos中
+  2. 运行[nacos/bin/startup.cmd](nacos/bin/startup.cmd)
+  3. http://localhost:8848/nacos
+  4. 账号/密码：nacos/nacos
+- sentinel-dashboard: 
+  1. 运行[sentinel-dashboard/startup.cmd](sentinel-dashboard/startup.cmd)
+  2. http://localhost:8858
+  3. 账号/密码：sentinel/sentinel
+- seata: 
+  1. 在[seata](seata)目录中创建logs目录
+  2. 运行[seata/bin/seata-server.bat](seata/bin/seata-server.bat)
+
+### 步骤5：启动服务
+- [gateway](micro-gateway/src/main/java/com/laiyw/micro/gateway/GatewayApplication.java)
+- [id-service](micro-modules/ms-id/id-service/src/main/java/com/laiyw/micro/id/IDGeneratorApplication.java)
+- [portal-service](micro-services/ms-portal/portal-service/src/main/java/com/laiyw/micro/portal/service/PortalServiceApplication.java)
+- [stock-service](micro-services/ms-stock/stock-service/src/main/java/com/laiyw/micro/stock/service/StockServiceApplication.java)
+- [order-service](micro-services/ms-order/order-service/src/main/java/com/laiyw/micro/order/service/OrderServiceApplication.java)
+
+### 步骤6：简单示例
+- nacos
+![nacos-config.png](images/nacos-config.png)
+![nacos-service.png](images/nacos-service.png)
+
+- sentinel-dashboard
+![sentinel-gateway.png](images/sentinel-gateway.png)
+
+- 模仿下单，该操作涉及如下技术点
+  - RPC: OpenFeign(调用库存和用户服务)
+  - 分布式ID: uid-generator(用于生成订单编号；仅作测试使用，实际应用中不建议用来生成订单编号)
+  - 分布式锁: Redisson(扣除库存)
+  - 分布式事务: Seata AT模式(保证数据一致性)
+  ```http request
+  GET http://localhost:8081/order/order/buy
+  ```
+  ![order-buy](images/order-buy.png)

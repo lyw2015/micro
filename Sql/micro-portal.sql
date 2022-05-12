@@ -20,7 +20,6 @@ CREATE TABLE `micro_user` (
 -- Records of micro_user
 -- ----------------------------
 INSERT INTO `micro_user` VALUES ('1', 'laiyw', '0', 'admin', '2022-04-26 11:56:47', 'admin', '2022-04-26 12:52:13');
-INSERT INTO `micro_user` VALUES ('2', 'test', '10000', 'admin', '2022-04-26 11:57:06', null, null);
 
 -- ----------------------------
 -- Table structure for undo_log

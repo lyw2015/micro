@@ -12,14 +12,12 @@ logging:
     org.springframework.cloud.gateway: debug
 
 spring:
+  profiles:
+    active: dev
   application:
     name: gateway
   cloud:
     nacos:
-      config:
-        server-addr: 127.0.0.1:8844
-        namespace: 18808baf-2238-4f27-be8b-6cfa3680a0a2
-        file-extension: yaml
       discovery:
         server-addr: ${spring.cloud.nacos.config.server-addr}
         namespace: ${spring.cloud.nacos.config.namespace}
@@ -34,8 +32,6 @@ spring:
       eager: true
       filter:
         enabled: true
-      transport:
-        dashboard: 127.0.0.1:8858
         port: 8719
       datasource:
         # flow, degrade, param-flow, system, authority, gw-flow, gw-api-group

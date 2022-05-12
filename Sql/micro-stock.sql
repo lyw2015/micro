@@ -18,6 +18,11 @@ CREATE TABLE `micro_commodity` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
+-- Records of micro_commodity
+-- ----------------------------
+INSERT INTO `micro_commodity` VALUES ('1', 'BcGquE', '9876', '8QSGRFIrUOqgiwB9KkMD5Xq9jgAfm494VgBF0Y8bdLUSmEKRk7', 'admin', '2022-05-05 09:46:26', 'admin', '2022-05-05 09:46:45');
+
+-- ----------------------------
 -- Table structure for undo_log
 -- ----------------------------
 DROP TABLE IF EXISTS `undo_log`;
