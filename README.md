@@ -93,7 +93,9 @@ spring:
 - [micro-uid-generator](Sql/micro-uid-generator.sql)
 
 ### 步骤3：修改配置
-根据自身环境修改如下配置文件或者在Nacos的dev环境中修改，Nacos的配置会覆盖本地配置
+**当前项目以Nacos的namespace区分环境；在各服务的bootstrap.yaml文件中指定spring.profiles.active的值，并在bootstrap-环境字符.yaml文件中指定Nacos中namespace ID**
+
+根据自身环境修改如下配置文件或者在Nacos的dev环境中修改，Nacos的配置会覆盖本地配置。
 - [id-service](micro-modules/ms-id/id-service/src/main/resources/bootstrap-dev.yaml)
 - [gateway](micro-gateway/src/main/resources/bootstrap-dev.yaml)
 - [portal](micro-services/ms-portal/portal-service/src/main/resources/bootstrap-dev.yaml)
@@ -133,7 +135,7 @@ spring:
   - RPC: OpenFeign(调用库存和用户服务)
   - 分布式ID: uid-generator(用于生成订单编号；仅作测试使用，实际应用中不建议用来生成订单编号)
   - 分布式锁: Redisson(扣除库存)
-  - 分布式事务: Seata AT模式(保证数据一致性)
+  - 分布式事务: Seata AT模式(多服务下保证数据一致性)
   ```http request
   GET http://localhost:8081/order/order/buy
   ```
