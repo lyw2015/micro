@@ -1,4 +1,5 @@
 # Micro 微服务集成测试
+### [快速开始](#quick_start)
 
 ## 微服务版本
 - spring-boot: 2.6.3
@@ -75,7 +76,7 @@ spring:
           username: root
           password: root
 ```
-## 快速开始
+## <span id="quick_start">快速开始</span>
 ### 步骤1：环境准备
 - [Java8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [MySQL](https://dev.mysql.com/downloads/mysql/)
