@@ -1,0 +1,31 @@
+[client]
+default-character-set=utf8mb4
+
+[mysql]
+default-character-set=utf8mb4
+
+[mysqld]
+read-only=1
+default-time-zone='+8:00'
+character-set-server=utf8mb4
+# error log
+log-error=/var/log/mysql/error.log
+
+# binlog
+server-id=3
+log-bin=/var/log/mysql/binlog/mysql-binlog
+binlog_format=mixed
+expire-logs-days=30
+max-binlog-size=500M
+
+# replicate database
+replicate_wild_do_table=micro-nacos.%
+replicate_wild_do_table=micro-order.%
+replicate_wild_do_table=micro-portal.%
+replicate_wild_do_table=micro-seata.%
+replicate_wild_do_table=micro-stock.%
+replicate_wild_do_table=micro-uid-generator.%
+
+# 半同步配置
+plugin-load=rpl_semi_sync_slave=semisync_slave.so
+rpl_semi_sync_slave_enabled=1

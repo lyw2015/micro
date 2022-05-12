@@ -1,0 +1,28 @@
+[client]
+default-character-set=utf8mb4
+
+[mysql]
+default-character-set=utf8mb4
+
+[mysqld]
+default-time-zone='+8:00'
+character-set-server=utf8mb4
+# error log
+log-error=/var/log/mysql/error.log
+
+# binlog
+server-id=2
+log-bin=/var/log/mysql/binlog/mysql-binlog
+binlog_format=mixed
+expire-logs-days=30
+max-binlog-size=500M
+
+# 半同步配置
+plugin-load=rpl_semi_sync_master=semisync_master.so
+rpl_semi_sync_master_enabled = 1
+# 半同步超时，默认10s
+rpl_semi_sync_master_timeout = 1000
+# 等待的Slave的数量，默认为1，如果为2则要等待两个Slave返回后才返回
+rpl_semi_sync_master_wait_for_slave_count=1
+# 退化为异步复制强度的开关，如果为ON，则半同步状态的Slave挂掉一个就会立刻变成异步复制，为OFF则还是半同步复制
+rpl_semi_sync_master_wait_no_slave=ON
