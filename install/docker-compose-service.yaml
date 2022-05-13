@@ -6,7 +6,7 @@ services:
     image: java:8
     container_name: id-service
     network_mode: host
-    working_dir: /data/apps/id-service
+    working_dir: /id-service
     environment:
       TZ: Asia/Shanghai
       spring.profiles.active: test
@@ -18,7 +18,7 @@ services:
     image: java:8
     container_name: sentinel-dashboard
     network_mode: host
-    working_dir: /data/apps/sentinel-dashboard
+    working_dir: /sentinel-dashboard
     environment:
       TZ: Asia/Shanghai
       server.port: 8858
