@@ -28,7 +28,7 @@ services:
       sentinel.dashboard.nacos.serverAddr: 192.168.47.112:8844
       sentinel.dashboard.nacos.namespace: 960c12f6-0adc-4b2b-ac5e-83aee6f3a392
       sentinel.dashboard.nacos.groupId: SENTINEL_GROUP
-    command: java -jar -DJM.LOG.PATH=/sentinel-dashboard/logs /sentinel-dashboard/sentinel-dashboard.jar
+    command: java -jar -DJM.LOG.PATH=/sentinel-dashboard/logs -Dcsp.sentinel.log.dir=/sentinel-dashboard/logs/sentinel /sentinel-dashboard/sentinel-dashboard.jar
     volumes:
       - /data/apps/sentinel-dashboard:/sentinel-dashboard
   gateway:
@@ -40,7 +40,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       spring.profiles.active: test
-    command: java -jar -DJM.LOG.PATH=/gateway/logs /gateway/micro-gateway-0.0.1-SNAPSHOT.jar
+    command: java -jar -DJM.LOG.PATH=/gateway/logs -Dcsp.sentinel.log.dir=/gateway/logs/sentinel /gateway/micro-gateway-0.0.1-SNAPSHOT.jar
     volumes:
       - /data/apps/gateway:/gateway
   portal:
@@ -52,7 +52,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       spring.profiles.active: test
-    command: java -jar -DJM.LOG.PATH=/portal/logs /portal/portal-service-0.0.1-SNAPSHOT.jar
+    command: java -jar -DJM.LOG.PATH=/portal/logs -Dcsp.sentinel.log.dir=/portal/logs/sentinel /portal/portal-service-0.0.1-SNAPSHOT.jar
     volumes:
       - /data/apps/portal:/portal
   stock:
@@ -64,7 +64,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       spring.profiles.active: test
-    command: java -jar -DJM.LOG.PATH=/stock/logs /stock/stock-service-0.0.1-SNAPSHOT.jar
+    command: java -jar -DJM.LOG.PATH=/stock/logs -Dcsp.sentinel.log.dir=/stock/logs/sentinel /stock/stock-service-0.0.1-SNAPSHOT.jar
     volumes:
       - /data/apps/stock:/stock
   order:
@@ -76,6 +76,6 @@ services:
     environment:
       TZ: Asia/Shanghai
       spring.profiles.active: test
-    command: java -jar -DJM.LOG.PATH=/order/logs /order/order-service-0.0.1-SNAPSHOT.jar
+    command: java -jar -DJM.LOG.PATH=/order/logs -Dcsp.sentinel.log.dir=/order/logs/sentinel /order/order-service-0.0.1-SNAPSHOT.jar
     volumes:
       - /data/apps/order:/order
