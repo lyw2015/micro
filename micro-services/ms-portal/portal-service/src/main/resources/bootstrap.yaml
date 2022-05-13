@@ -76,6 +76,8 @@ spring:
     sentinel:
       enabled: true
       eager: true
+      log:
+        dir: logs/sentinel
       datasource:
         flow:
           nacos:

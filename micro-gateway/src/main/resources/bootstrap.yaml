@@ -29,10 +29,10 @@ spring:
           lower-case-service-id: true
           route-id-prefix: "route-"
     sentinel:
+      enabled: true
       eager: true
-      filter:
-        enabled: true
-        port: 8719
+      log:
+        dir: logs/sentinel
       datasource:
         # flow, degrade, param-flow, system, authority, gw-flow, gw-api-group
         gw-api-group:
