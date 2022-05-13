@@ -10,7 +10,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       spring.profiles.active: test
-    command: java -jar /id-service/id-service-0.0.1-SNAPSHOT.jar
+    command: java -jar -DJM.LOG.PATH=/id-service/logs /id-service/id-service-0.0.1-SNAPSHOT.jar
     volumes:
       - /data/apps/id-service:/id-service
   sentinel-dashboard:
@@ -28,7 +28,54 @@ services:
       sentinel.dashboard.nacos.serverAddr: 192.168.47.112:8844
       sentinel.dashboard.nacos.namespace: 960c12f6-0adc-4b2b-ac5e-83aee6f3a392
       sentinel.dashboard.nacos.groupId: SENTINEL_GROUP
-    command: java -jar /sentinel-dashboard/sentinel-dashboard.jar
+    command: java -jar -DJM.LOG.PATH=/sentinel-dashboard/logs /sentinel-dashboard/sentinel-dashboard.jar
     volumes:
       - /data/apps/sentinel-dashboard:/sentinel-dashboard
-
+  gateway:
+    restart: always
+    image: java:8
+    container_name: gateway
+    network_mode: host
+    working_dir: /gateway
+    environment:
+      TZ: Asia/Shanghai
+      spring.profiles.active: test
+    command: java -jar -DJM.LOG.PATH=/gateway/logs /gateway/micro-gateway-0.0.1-SNAPSHOT.jar
+    volumes:
+      - /data/apps/gateway:/gateway
+  portal:
+    restart: always
+    image: java:8
+    container_name: portal
+    network_mode: host
+    working_dir: /portal
+    environment:
+      TZ: Asia/Shanghai
+      spring.profiles.active: test
+    command: java -jar -DJM.LOG.PATH=/portal/logs /portal/portal-service-0.0.1-SNAPSHOT.jar
+    volumes:
+      - /data/apps/portal:/portal
+  stock:
+    restart: always
+    image: java:8
+    container_name: stock
+    network_mode: host
+    working_dir: /stock
+    environment:
+      TZ: Asia/Shanghai
+      spring.profiles.active: test
+    command: java -jar -DJM.LOG.PATH=/stock/logs /stock/stock-service-0.0.1-SNAPSHOT.jar
+    volumes:
+      - /data/apps/stock:/stock
+  order:
+    restart: always
+    image: java:8
+    container_name: order
+    network_mode: host
+    working_dir: /order
+    environment:
+      TZ: Asia/Shanghai
+      spring.profiles.active: test
+    command: java -jar -DJM.LOG.PATH=/order/logs /order/order-service-0.0.1-SNAPSHOT.jar
+    volumes:
+      - /data/apps/order:/order
