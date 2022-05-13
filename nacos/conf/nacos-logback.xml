@@ -17,8 +17,8 @@
 
 <configuration scan="true" scanPeriod="10 seconds">
 
-    <springProperty scope="context" name="logPath" source="nacos.logs.path" defaultValue="${nacos.home}/logs"/>
-    <property name="LOG_HOME" value="${logPath}"/>
+<!--    <springProperty scope="context" name="logPath" source="nacos.logs.path" defaultValue="${nacos.home}/logs"/>-->
+    <property name="LOG_HOME" value="${nacos.home}/logs"/>
 
     <appender name="cmdb-main"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
