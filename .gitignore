@@ -2,6 +2,8 @@ HELP.md
 target/
 .mvn
 
+logs
+
 ### nacos ###
 nacos/logs/
 nacos/target/
