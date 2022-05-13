@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <included>
     <!-- file-appender properties -->
-    <property name="LOG_HOME" value="${user.home}/logs/seata"/>
+    <property name="LOG_HOME" value="../logs/seata"/>
     <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%30.30t] %-40.40logger{39} : %m%n%wEx"/>
 
     <!--ALL-->
