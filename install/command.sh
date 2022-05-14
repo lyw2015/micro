@@ -32,7 +32,8 @@ mkdir -p \
   /data/mysql/conf \
   /data/mysql/logs/binlog \
   /data/redis/conf \
-  /data/nginx
+  /data/nginx \
+  /data/seata-server/config
 
 # 创建服务目录
 mkdir -p \
@@ -45,6 +46,7 @@ mkdir -p \
 
 # 远程拷贝
 scp /data/docker-compose/* root@192.168.116.130:/data/docker-compose/
+scp /data/apps/* root@192.168.116.130:/data/apps/
 
 # 重新部署服务
 docker-compose -f /data/docker-compose/service.yaml up -d --no-deps gateway
