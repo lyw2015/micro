@@ -1,3 +1,7 @@
+-- DATABASE
+CREATE DATABASE IF NOT EXISTS `micro-nacos` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `micro-nacos`;
 
 SET FOREIGN_KEY_CHECKS=0;
 

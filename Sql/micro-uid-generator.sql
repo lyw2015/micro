@@ -1,3 +1,8 @@
+-- DATABASE
+CREATE DATABASE IF NOT EXISTS `micro-uid-generator` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `micro-uid-generator`;
+
 DROP TABLE IF EXISTS WORKER_NODE;
 CREATE TABLE WORKER_NODE
 (

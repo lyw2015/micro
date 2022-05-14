@@ -1,3 +1,7 @@
+-- DATABASE
+CREATE DATABASE IF NOT EXISTS `micro-seata` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `micro-seata`;
 
 SET FOREIGN_KEY_CHECKS=0;
 

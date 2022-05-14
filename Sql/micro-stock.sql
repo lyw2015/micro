@@ -1,3 +1,7 @@
+-- DATABASE
+CREATE DATABASE IF NOT EXISTS `micro-stock` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `micro-stock`;
 
 SET FOREIGN_KEY_CHECKS=0;
 
