@@ -1,5 +1,5 @@
 # Micro 微服务集成测试
-### [快速开始](#quick_start)
+### [快速开始](#quick_start)  [分布式部署v1](#distributed_deploymen)
 
 ## 微服务版本
 - spring-boot: 2.6.3
@@ -140,3 +140,19 @@ spring:
   GET http://localhost:8081/order/order/buy
   ```
   ![order-buy](images/order-buy.png)
+
+## <span id="distributed_deploymen">分布式部署v1</span>
+**本次部署暂未接入CI/CD，全部在本地虚拟机上采用docker-compose实现组件和服务的安装部署；
+集成nginx + keepalived实现服务的高可用；**
+
+- 组件安装docker-compose：[docker-compose-soft.yaml](install/docker-compose-soft.yaml)
+  - nginx参考配置[nginx.conf](install/nginx.conf)
+  - mysql参考配置[master-my.cnf](install/mysql-conf/master-my.cnf), [slave-my.cnf](install/mysql-conf/slave-my.cnf)；部分SQL命令可参考[command.sql](install/command.sql)
+  - redis参考配置[redis.conf](install/redis.conf)（依赖配置启动，需要安装前配置好）
+  - seata-server参考配置[registry.conf](install/registry.conf)（依赖配置启动，需要安装前配置好）
+- 服务启动docker-compose：[docker-compose-service.yaml](install/docker-compose-service.yaml)
+  - Nacos客户端日志目录：-DJM.LOG.PATH
+  - Sentinel客户端日志目录：-Dcsp.sentinel.log.dir
+
+### 系统架构
+![Micro系统架构V1](images/micro系统架构v1.jpg)
