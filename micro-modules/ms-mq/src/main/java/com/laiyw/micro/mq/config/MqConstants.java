@@ -29,6 +29,8 @@ public class MqConstants {
 
     public static final String EXCHANGE_DIRECT_DLX_NAME = "exchange_direct_dlx";
 
+    public static final String EXCHANGE_CUSTOM_DIRECT_DLX_NAME = "exchange_custom_direct_dlx";
+
     public static final String EXCHANGE_FANOUT_NAME = "exchange_fanout";
 
     public static final String EXCHANGE_DIRECT_NAME = "exchange_direct";
