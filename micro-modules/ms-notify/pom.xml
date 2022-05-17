@@ -9,35 +9,11 @@
     </parent>
 
     <artifactId>ms-notify</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>ms-notify</name>
-    <description>ms-notify</description>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.laiyw.micro</groupId>
-            <artifactId>ms-mq</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <modules>
+        <module>notify-api</module>
+        <module>notify-service</module>
+    </modules>
 
 </project>

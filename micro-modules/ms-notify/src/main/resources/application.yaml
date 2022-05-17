@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: notify
-
-server:
-  port: 7070
