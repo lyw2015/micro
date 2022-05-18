@@ -34,7 +34,7 @@ public class PaymentConsumer {
             RabbitUtils.ackCurrent(channel, deliveryTag);
         } catch (Exception e) {
             log.error("业务处理异常", e);
-            RabbitUtils.nackCurrent(channel, deliveryTag);
+            RabbitUtils.nackAndDiscardCurrent(channel, deliveryTag);
         }
     }
 
@@ -50,7 +50,7 @@ public class PaymentConsumer {
             RabbitUtils.ackCurrent(channel, deliveryTag);
         } catch (Exception e) {
             log.error("业务处理异常", e);
-            RabbitUtils.rejectCurrent(channel, deliveryTag);
+            RabbitUtils.rejectAndDiscardCurrent(channel, deliveryTag);
         }
     }
 }

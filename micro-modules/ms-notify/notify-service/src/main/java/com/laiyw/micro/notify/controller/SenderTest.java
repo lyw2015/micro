@@ -1,8 +1,10 @@
 package com.laiyw.micro.notify.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.laiyw.micro.common.controller.BaseController;
 import com.laiyw.micro.common.domain.AjaxResult;
 import com.laiyw.micro.mq.config.MqConstants;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +34,9 @@ public class SenderTest extends BaseController {
      */
     @GetMapping("/noex/{queueName}")
     public AjaxResult noex(@PathVariable("queueName") String queueName) {
-        String msg = String.format("使用默认交换器Direct，发送到队列：%s", queueName);
-        template.convertAndSend(queueName, msg);
-        return success(msg);
+        Object msg = String.format("使用默认交换器Direct，发送到队列：%s", queueName);
+        template.convertAndSend(queueName, msg, new CorrelationData(UUID.fastUUID().toString()));
+        return AjaxResult.success(msg);
     }
 
     /**
@@ -45,21 +47,21 @@ public class SenderTest extends BaseController {
      */
     @GetMapping("/fanout")
     public AjaxResult fanout() {
-        template.convertAndSend(MqConstants.EXCHANGE_FANOUT_NAME, null, "这是Fanout交换器的广播消息");
+        template.convertAndSend(MqConstants.EXCHANGE_FANOUT_NAME, null, "这是Fanout交换器的广播消息", new CorrelationData(UUID.fastUUID().toString()));
         return success();
     }
 
     @GetMapping("/direct/{routingKey}")
     public AjaxResult direct(@PathVariable("routingKey") String routingKey) {
         String msg = String.format("使用Direct交换器发送到绑定key为%s的队列上", routingKey);
-        template.convertAndSend(MqConstants.EXCHANGE_DIRECT_NAME, routingKey, msg);
+        template.convertAndSend(MqConstants.EXCHANGE_DIRECT_NAME, routingKey, msg, new CorrelationData(UUID.fastUUID().toString()));
         return success(msg);
     }
 
     @GetMapping("/topic/{routingKey}")
     public AjaxResult topic(@PathVariable("routingKey") String routingKey) {
         String msg = String.format("使用Topic交换器发送到绑定key满足%s规则的队列上", routingKey);
-        template.convertAndSend(MqConstants.EXCHANGE_TOPIC_NAME, routingKey, msg);
+        template.convertAndSend(MqConstants.EXCHANGE_TOPIC_NAME, routingKey, msg, new CorrelationData(UUID.fastUUID().toString()));
         return success(msg);
     }
 }
