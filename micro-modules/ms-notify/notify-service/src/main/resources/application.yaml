@@ -5,8 +5,18 @@ spring:
   application:
     name: notify
   rabbitmq:
-    host: localhost
+    addresses: localhost
     port: 5672
     username: guest
     password: guest
     virtual-host: /
+    # 心跳超时
+    requested-heartbeat: 60s
+    # 发布确认方式
+    publisher-confirm-type: none
+    publisher-returns: false
+    connection-timeout: 0
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 30

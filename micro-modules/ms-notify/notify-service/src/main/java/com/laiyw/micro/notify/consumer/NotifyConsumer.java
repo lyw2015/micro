@@ -1,9 +1,13 @@
 package com.laiyw.micro.notify.consumer;
 
 import com.laiyw.micro.mq.config.MqConstants;
+import com.laiyw.micro.mq.utils.RabbitUtils;
 import com.laiyw.micro.notify.api.vo.SenderInfo;
+import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.AmqpHeaders;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,8 +21,9 @@ import org.springframework.stereotype.Component;
 public class NotifyConsumer {
 
     @RabbitListener(queues = MqConstants.QUEUE_NOTIFY_NAME)
-    public void notify(SenderInfo senderInfo) {
+    public void notify(SenderInfo senderInfo, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
         log.info("队列[{}]收到消息：{}", MqConstants.QUEUE_NOTIFY_NAME, senderInfo);
+        RabbitUtils.ackCurrent(channel, deliveryTag);
     }
 
 }
