@@ -31,6 +31,7 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
      * Patterns
      */
     public static final String DAY_PATTERN = "yyyy-MM-dd";
+    public static final String TIME_PATTERN = "HH:mm:ss";
     public static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String DATETIME_MS_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";
 
@@ -92,6 +93,14 @@ public abstract class DateUtils extends org.apache.commons.lang3.time.DateUtils 
     public static String formatByDayPattern(Date date) {
         if (date != null) {
             return DateFormatUtils.format(date, DAY_PATTERN);
+        } else {
+            return null;
+        }
+    }
+
+    public static String formatByTimePattern(Date date) {
+        if (date != null) {
+            return DateFormatUtils.format(date, TIME_PATTERN);
         } else {
             return null;
         }

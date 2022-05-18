@@ -1,11 +1,14 @@
-package com.laiyw.micro.mq.config;
+package com.laiyw.micro.mq.config.delay;
 
+import com.laiyw.micro.mq.config.MqConstants;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.CustomExchange;
+import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 /**
@@ -19,9 +22,9 @@ import java.util.HashMap;
 public class PaymentDelayedConfig {
 
     @Bean
-    public CustomExchange customExchangePaymentDlx() {
+    public CustomExchange exchangeCustomDirectDelayed() {
         return new CustomExchange(
-                MqConstants.EXCHANGE_CUSTOM_DIRECT_DLX_NAME,
+                MqConstants.EXCHANGE_CUSTOM_DIRECT_DELAYED_NAME,
                 "x-delayed-message",
                 true, false,
                 new HashMap<String, Object>(1) {{
@@ -30,16 +33,16 @@ public class PaymentDelayedConfig {
     }
 
     @Bean
-    public Binding bindingCustomPayment(Queue delayPaymentDlqQueue) {
-        return BindingBuilder
-                .bind(delayPaymentDlqQueue)
-                .to(customExchangePaymentDlx())
-                .with(MqConstants.ROUTING_KEY_DELAY_PAYMENT_DLK)
-                .noargs();
+    public Queue paymentDelayedQueue() {
+        return new Queue(MqConstants.QUEUE_PAYMENT_DELAYED_NAME);
     }
 
-    public void send() {
-        MessageBuilder builder = MessageBuilder.withBody("插件".getBytes(StandardCharsets.UTF_8));
-        builder.setHeader("x-delay", 1000 * 10);
+    @Bean
+    public Binding bindingCustomPayment() {
+        return BindingBuilder
+                .bind(paymentDelayedQueue())
+                .to(exchangeCustomDirectDelayed())
+                .with(MqConstants.ROUTING_KEY_DELAY_PAYMENT_DLK)
+                .noargs();
     }
 }

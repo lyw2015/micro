@@ -18,18 +18,20 @@ public class MqConstants {
 
     // ---------------queue---------------
 
-    public static final String QUEUE_DELAY_PAYMENT_DLQ_NAME = "queue_delay_payment_dlq";
+    public static final String QUEUE_PAYMENT_TTL_DEAD_LETTER_NAME = "payment_ttl_dead_letter";
 
-    public static final String QUEUE_DELAY_PAYMENT_NAME = "queue_delay_payment";
+    public static final String QUEUE_PAYMENT_TTL_NAME = "payment_ttl";
 
-    public static final String QUEUE_NOTIFY_NAME = "queue_notify";
+    public static final String QUEUE_PAYMENT_DELAYED_NAME = "payment_delayed";
+
+    public static final String QUEUE_NOTIFY_NAME = "notify";
 
 
     // ---------------exchange---------------
 
-    public static final String EXCHANGE_DIRECT_DLX_NAME = "exchange_direct_dlx";
+    public static final String EXCHANGE_DIRECT_TTL_NAME = "exchange_direct_ttl";
 
-    public static final String EXCHANGE_CUSTOM_DIRECT_DLX_NAME = "exchange_custom_direct_dlx";
+    public static final String EXCHANGE_CUSTOM_DIRECT_DELAYED_NAME = "exchange_custom_direct_delayed";
 
     public static final String EXCHANGE_FANOUT_NAME = "exchange_fanout";
 

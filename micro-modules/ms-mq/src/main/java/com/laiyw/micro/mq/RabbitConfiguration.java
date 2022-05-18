@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan({"com.laiyw.micro.mq"})
 public class RabbitConfiguration {
 
-    @Bean
-    public MessageConverter messageConverter() {
+    // @Bean
+    public MessageConverter jackson2JsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
