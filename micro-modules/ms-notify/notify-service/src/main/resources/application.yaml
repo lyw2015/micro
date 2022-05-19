@@ -19,6 +19,11 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual
+        # 消费端监听个数（即@RabbitListener开启几个线程去处理数据），可在RabbitListener注解中配置单独使某个队列生效
+        concurrency: 1
+        # 消费端最大监听个数
+        max-concurrency: 10
+        # 消费端预取消息数量到本地内存
         prefetch: 30
         retry:
           #是否开启消费者重试

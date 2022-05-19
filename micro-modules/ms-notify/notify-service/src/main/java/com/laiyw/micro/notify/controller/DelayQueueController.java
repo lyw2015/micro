@@ -1,5 +1,6 @@
 package com.laiyw.micro.notify.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.laiyw.micro.common.controller.BaseController;
 import com.laiyw.micro.common.domain.AjaxResult;
 import com.laiyw.micro.common.utils.DateUtils;
@@ -7,6 +8,7 @@ import com.laiyw.micro.mq.config.MqConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,10 +35,10 @@ public class DelayQueueController extends BaseController {
     @GetMapping("/ttl")
     public AjaxResult senderTtl() {
         log.info("[{}] ttl-发送消息到队列：{}", DateUtils.formatByTimePattern(new Date()), MqConstants.QUEUE_PAYMENT_TTL_NAME);
-        String msg = "延时队列实现方式之TTL";
-        template.convertAndSend(MqConstants.QUEUE_PAYMENT_TTL_NAME, msg);
+        Object msg = "延时队列实现方式之TTL";
+        template.convertAndSend(MqConstants.QUEUE_PAYMENT_TTL_NAME, msg, new CorrelationData(UUID.fastUUID().toString()));
         log.info("ttl-消息发送完成");
-        return success(msg);
+        return AjaxResult.success(msg);
     }
 
     @GetMapping("/delayed")
@@ -47,7 +49,7 @@ public class DelayQueueController extends BaseController {
                 .withBody(msg.getBytes(StandardCharsets.UTF_8))
                 .setHeader("x-delay", 1000 * 10)
                 .build();
-        template.convertAndSend(MqConstants.EXCHANGE_CUSTOM_DIRECT_DELAYED_NAME, MqConstants.ROUTING_KEY_DELAY_PAYMENT_DLK, message);
+        template.convertAndSend(MqConstants.EXCHANGE_CUSTOM_DIRECT_DELAYED_NAME, MqConstants.ROUTING_KEY_DELAY_PAYMENT_DLK, message, new CorrelationData(UUID.fastUUID().toString()));
         log.info("delayed-延时消息发送完成");
         return success(msg);
     }

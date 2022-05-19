@@ -5,11 +5,14 @@ import com.laiyw.micro.mq.config.MqConstants;
 import com.laiyw.micro.mq.utils.RabbitUtils;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.connection.PublisherCallbackChannel;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.Charset;
 import java.util.Date;
 
 /**
@@ -27,10 +30,11 @@ public class PaymentConsumer {
      * 延时付款死信队列消费者
      */
     @RabbitListener(queues = MqConstants.QUEUE_PAYMENT_TTL_DEAD_LETTER_NAME)
-    public void paymentTtlDeadLetter(String msg, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+    public void paymentTtlDeadLetter(Message msg, Channel channel) {
+        long deliveryTag = msg.getMessageProperties().getDeliveryTag();
         try {
-            log.info("{}=>收到来自死信队列[{}]的消息：{}", DateUtils.formatByTimePattern(new Date()), MqConstants.QUEUE_PAYMENT_TTL_DEAD_LETTER_NAME, msg);
-            log.info("DELIVERY_TAG: {}", deliveryTag);
+            log.info("{}=>收到来自死信队列[{}]的消息：{}", DateUtils.formatByTimePattern(new Date()), MqConstants.QUEUE_PAYMENT_TTL_DEAD_LETTER_NAME, new String(msg.getBody(), Charset.defaultCharset()));
+            log.info("deliveryTag: {}, correlationId: {}", deliveryTag, msg.getMessageProperties().getHeader(PublisherCallbackChannel.RETURNED_MESSAGE_CORRELATION_KEY));
             RabbitUtils.ackCurrent(channel, deliveryTag);
         } catch (Exception e) {
             log.error("业务处理异常", e);
@@ -46,7 +50,7 @@ public class PaymentConsumer {
     public void paymentDelayed(String msg, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
         try {
             log.info("{}=>收到来自队列[{}]的消息：{}", DateUtils.formatByTimePattern(new Date()), MqConstants.QUEUE_PAYMENT_DELAYED_NAME, msg);
-            log.info("DELIVERY_TAG: {}", deliveryTag);
+            log.info("deliveryTag: {}", deliveryTag);
             RabbitUtils.ackCurrent(channel, deliveryTag);
         } catch (Exception e) {
             log.error("业务处理异常", e);

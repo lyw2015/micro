@@ -20,7 +20,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotifyConsumer {
 
-    @RabbitListener(queues = MqConstants.QUEUE_NOTIFY_NAME)
+    /**
+     * concurrency = "2"：开启两个线程处理消息，即两个channel
+     *
+     * @param senderInfo
+     * @param channel
+     * @param deliveryTag
+     */
+    @RabbitListener(queues = MqConstants.QUEUE_NOTIFY_NAME, concurrency = "2")
     public void notify(SenderInfo senderInfo, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
         log.info("队列[{}]收到消息：{}", MqConstants.QUEUE_NOTIFY_NAME, senderInfo);
         RabbitUtils.ackCurrent(channel, deliveryTag);
