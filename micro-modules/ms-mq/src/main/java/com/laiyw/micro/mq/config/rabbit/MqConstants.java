@@ -1,4 +1,4 @@
-package com.laiyw.micro.mq.config;
+package com.laiyw.micro.mq.config.rabbit;
 
 /**
  * @ProjectName micro

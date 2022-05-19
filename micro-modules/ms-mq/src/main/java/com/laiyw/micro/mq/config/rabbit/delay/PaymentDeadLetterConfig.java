@@ -1,6 +1,6 @@
-package com.laiyw.micro.mq.config.delay;
+package com.laiyw.micro.mq.config.rabbit.delay;
 
-import com.laiyw.micro.mq.config.MqConstants;
+import com.laiyw.micro.mq.config.rabbit.MqConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

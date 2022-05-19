@@ -1,4 +1,4 @@
-package com.laiyw.micro.mq.config;
+package com.laiyw.micro.mq.config.rabbit;
 
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;

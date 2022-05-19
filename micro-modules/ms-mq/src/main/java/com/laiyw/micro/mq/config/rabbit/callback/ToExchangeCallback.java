@@ -1,4 +1,4 @@
-package com.laiyw.micro.mq.config.callback;
+package com.laiyw.micro.mq.config.rabbit.callback;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;

@@ -1,7 +1,7 @@
-package com.laiyw.micro.mq.config.callback;
+package com.laiyw.micro.mq.config.rabbit.callback;
 
 import com.alibaba.fastjson.JSON;
-import com.laiyw.micro.mq.config.MqConstants;
+import com.laiyw.micro.mq.config.rabbit.MqConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.ReturnedMessage;
 import org.springframework.amqp.rabbit.connection.PublisherCallbackChannel;

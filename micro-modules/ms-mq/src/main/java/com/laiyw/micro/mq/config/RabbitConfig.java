@@ -1,14 +1,13 @@
-package com.laiyw.micro.mq;
+package com.laiyw.micro.mq.config;
 
-import com.laiyw.micro.mq.config.MqConstants;
-import com.laiyw.micro.mq.config.callback.ToExchangeCallback;
-import com.laiyw.micro.mq.config.callback.ToQueueCallback;
+import com.laiyw.micro.mq.config.rabbit.MqConstants;
+import com.laiyw.micro.mq.config.rabbit.callback.ToExchangeCallback;
+import com.laiyw.micro.mq.config.rabbit.callback.ToQueueCallback;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
@@ -16,13 +15,12 @@ import javax.annotation.PostConstruct;
 /**
  * @ProjectName micro
  * @Author Laiyw
- * @CreateTime 2022/5/16 15:07
+ * @CreateTime 2022/5/19 12:04
  * @Description TODO
  */
 @Slf4j
 @Configuration
-@ComponentScan({"com.laiyw.micro.mq"})
-public class RabbitConfiguration {
+public class RabbitConfig {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -50,7 +48,7 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    public Binding bindingFanoutSms(FanoutExchange fanoutExchange) {
+    public Binding bindingFanoutNotify(FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(notifyQueue()).to(fanoutExchange);
     }
 }
