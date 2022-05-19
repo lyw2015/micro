@@ -3,7 +3,7 @@ package com.laiyw.micro.notify.controller;
 import cn.hutool.core.lang.UUID;
 import com.laiyw.micro.common.controller.BaseController;
 import com.laiyw.micro.common.domain.AjaxResult;
-import com.laiyw.micro.mq.config.MqConstants;
+import com.laiyw.micro.mq.config.rabbit.MqConstants;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

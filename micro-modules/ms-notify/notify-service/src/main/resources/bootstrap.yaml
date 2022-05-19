@@ -1,15 +1,26 @@
 server:
   port: 7070
+  servlet:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+
+logging:
+  level:
+    com.laiyw.micro: debug
 
 spring:
+  profiles:
+    active: dev
   application:
     name: notify
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        namespace: ${spring.cloud.nacos.config.namespace}
   rabbitmq:
-    addresses: localhost
-    port: 5672
-    username: guest
-    password: guest
-    virtual-host: /
     connection-timeout: 0
     requested-heartbeat: 60s
     # 设置此属性配置可以确保消息成功发送到交换器

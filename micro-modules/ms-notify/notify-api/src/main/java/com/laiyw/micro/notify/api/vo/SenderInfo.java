@@ -2,6 +2,7 @@ package com.laiyw.micro.notify.api.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @Description TODO
  */
 @Data
+@Accessors(chain = true)
 @NoArgsConstructor
 public class SenderInfo implements Serializable {
 
@@ -23,5 +25,9 @@ public class SenderInfo implements Serializable {
 
     private String templateCode;
 
-    private String content;
+    private Object content;
+
+    public static SenderInfo create() {
+        return new SenderInfo();
+    }
 }

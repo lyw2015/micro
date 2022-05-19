@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.47.112:8844
+        namespace: 960c12f6-0adc-4b2b-ac5e-83aee6f3a392
+        file-extension: yaml
+  rabbitmq:
+    addresses: 192.168.47.112
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /

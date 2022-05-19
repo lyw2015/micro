@@ -1,11 +1,13 @@
 package com.laiyw.micro.notify.consumer;
 
-import com.laiyw.micro.mq.config.MqConstants;
+import com.alibaba.fastjson.JSON;
+import com.laiyw.micro.mq.config.rabbit.MqConstants;
 import com.laiyw.micro.mq.utils.RabbitUtils;
 import com.laiyw.micro.notify.api.vo.SenderInfo;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.connection.PublisherCallbackChannel;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
@@ -28,8 +30,11 @@ public class NotifyConsumer {
      * @param deliveryTag
      */
     @RabbitListener(queues = MqConstants.QUEUE_NOTIFY_NAME, concurrency = "2")
-    public void notify(SenderInfo senderInfo, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
-        log.info("队列[{}]收到消息：{}", MqConstants.QUEUE_NOTIFY_NAME, senderInfo);
+    public void notify(SenderInfo senderInfo, Channel channel,
+                       @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag,
+                       @Header(PublisherCallbackChannel.RETURNED_MESSAGE_CORRELATION_KEY) String correlationId) {
+        log.info("队列[{}]收到消息：{}", MqConstants.QUEUE_NOTIFY_NAME, correlationId);
+        log.info(JSON.toJSONString(senderInfo));
         RabbitUtils.ackCurrent(channel, deliveryTag);
     }
 

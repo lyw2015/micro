@@ -2,7 +2,7 @@ package com.laiyw.micro.notify.controller;
 
 import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson.JSON;
-import com.laiyw.micro.mq.config.MqConstants;
+import com.laiyw.micro.mq.config.rabbit.MqConstants;
 import com.laiyw.micro.notify.api.client.NotifyClient;
 import com.laiyw.micro.notify.api.vo.SenderInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/sender")
-public class NotifySender implements NotifyClient {
+public class NotifyController implements NotifyClient {
 
     @Autowired
     private RabbitTemplate template;
