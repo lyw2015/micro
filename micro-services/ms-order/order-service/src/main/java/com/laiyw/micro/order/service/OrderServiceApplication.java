@@ -8,7 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = {
         "com.laiyw.micro.portal.api.client",
         "com.laiyw.micro.stock.api.client",
-        "com.laiyw.micro.id.api.client"
+        "com.laiyw.micro.id.api.client",
+        "com.laiyw.micro.notify.api.client",
 })
 public class OrderServiceApplication {
 

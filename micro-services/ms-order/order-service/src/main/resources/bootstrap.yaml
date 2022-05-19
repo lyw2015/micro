@@ -68,6 +68,38 @@ spring:
         max-idle: 8
         min-idle: 0
       shutdown-timeout: 100ms
+  rabbitmq:
+    addresses: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    connection-timeout: 0
+    requested-heartbeat: 60s
+    # 设置此属性配置可以确保消息成功发送到交换器
+    publisher-confirm-type: correlated
+    # 必须设置为true，否则消息消息路由失败也无法触发Return回调
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        # 消费端监听个数（即@RabbitListener开启几个线程去处理数据），可在RabbitListener注解中配置单独使某个队列生效
+        concurrency: 1
+        # 消费端最大监听个数
+        max-concurrency: 10
+        # 消费端预取消息数量到本地内存
+        prefetch: 30
+        retry:
+          #是否开启消费者重试
+          enabled: false
+          #最大重试次数
+          max-attempts: 5
+          #重试间隔时间（单位毫秒）
+          initial-interval: 5000ms
+          #重试最大时间间隔（单位毫秒）
+          max-interval: 1200000ms
+          #间隔时间乘子，间隔时间*乘子=下一次的间隔时间，最大不能超过设置的最大间隔时间
+          multiplier: 2
   cloud:
     nacos:
       discovery:

@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS `micro_order`;
 CREATE TABLE `micro_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `commodity_id` int(11) NOT NULL,
   `number` int(11) NOT NULL DEFAULT '0',
   `money` int(255) NOT NULL,

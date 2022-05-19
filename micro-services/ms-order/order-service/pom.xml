@@ -31,8 +31,8 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.laiyw.micro</groupId>
-            <artifactId>ms-mq</artifactId>
+            <groupId>com.laiyw.micro.notify</groupId>
+            <artifactId>notify-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

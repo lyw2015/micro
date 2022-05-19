@@ -26,6 +26,8 @@ public class Order extends BaseModel<Order> {
 
     private String orderId;
 
+    private Long userId;
+
     private Long commodityId;
 
     private Long number;
