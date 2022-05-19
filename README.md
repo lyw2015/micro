@@ -132,10 +132,15 @@ spring:
 ![sentinel-gateway.png](images/sentinel-gateway.png)
 
 - 模仿下单，该操作涉及如下技术点
-  - RPC: OpenFeign(调用库存和用户服务)
+  - RPC: OpenFeign(调用库存、通知及分布式ID服务)
   - 分布式ID: uid-generator(用于生成订单编号；仅作测试使用，实际应用中不建议用来生成订单编号)
   - 分布式锁: Redisson(扣除库存)
   - 分布式事务: Seata AT模式(多服务下保证数据一致性)
+  - 消息队列：Rabbit
+    - 消息通知
+    - 订单支付倒计时
+      - TTL + 死信队列
+      - 插件rabbitmq_delayed_message_exchange
   ```http request
   GET http://localhost:8081/order/order/buy
   ```
