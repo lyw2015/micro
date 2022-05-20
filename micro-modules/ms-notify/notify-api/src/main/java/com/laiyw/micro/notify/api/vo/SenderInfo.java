@@ -1,8 +1,9 @@
 package com.laiyw.micro.notify.api.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -13,8 +14,9 @@ import java.io.Serializable;
  * @Description TODO
  */
 @Data
-@Accessors(chain = true)
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class SenderInfo implements Serializable {
 
     private Long userId;
@@ -26,8 +28,4 @@ public class SenderInfo implements Serializable {
     private String templateCode;
 
     private Object content;
-
-    public static SenderInfo create() {
-        return new SenderInfo();
-    }
 }

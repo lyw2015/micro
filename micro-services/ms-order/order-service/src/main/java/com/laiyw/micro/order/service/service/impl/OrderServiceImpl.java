@@ -58,7 +58,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 扣款倒计时（推送信息到延时队列）
         pushHandler.delayPayment(order);
         // 消息通知
-        notifyClient.send(SenderInfo.create().setUserId(order.getUserId()).setContent(order));
+        notifyClient.send(SenderInfo.builder().userId(order.getUserId()).content(order).build());
         return order;
     }
 
