@@ -80,11 +80,11 @@ public class RedisConfiguration extends CachingConfigurerSupport {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = jackson2JsonRedisSerializer();
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 //缓存过期时间（秒）
-                .entryTtl(Duration.ofSeconds(60 * 5))
+                .entryTtl(Duration.ofSeconds(60 * 30))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
                 .disableCachingNullValues();
-        return RedisCacheManager.builder(factory).cacheDefaults(redisCacheConfiguration).build();
+        return RedisCacheManager.builder(factory).cacheDefaults(redisCacheConfiguration).transactionAware().build();
     }
 
     private Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer() {
