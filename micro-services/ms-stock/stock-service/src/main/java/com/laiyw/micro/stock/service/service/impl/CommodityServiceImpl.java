@@ -3,6 +3,7 @@ package com.laiyw.micro.stock.service.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laiyw.micro.common.exception.ServiceException;
+import com.laiyw.micro.common.utils.SpringUtils;
 import com.laiyw.micro.stock.service.domain.Commodity;
 import com.laiyw.micro.stock.service.mapper.CommodityMapper;
 import com.laiyw.micro.stock.service.service.ICommodityService;
@@ -13,6 +14,9 @@ import org.apache.commons.lang3.RandomUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +37,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Autowired
     private CommodityMapper commodityMapper;
 
+    @CachePut(cacheNames = "commodity_detail", key = "#result.id")
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public Commodity randomCommodity() {
@@ -45,9 +50,23 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         return commodity;
     }
 
+    @Cacheable(cacheNames = "commodity_detail", key = "#id")
+    @Override
+    public Commodity getCommodityById(Long id) {
+        return getById(id);
+    }
+
     @Override
     public List<Commodity> listCommodity() {
         return commodityMapper.selectList(new QueryWrapper<>());
+    }
+
+    @CachePut(cacheNames = "commodity_detail", key = "#result.id")
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public Commodity updateCommodity(Commodity commodity) {
+        updateById(commodity);
+        return commodity;
     }
 
     @Transactional(rollbackFor = {Exception.class})
@@ -57,16 +76,24 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         RLock rLock = redissonClient.getLock(String.format("commodity_%d", id));
         try {
             rLock.lock();
-            Commodity commodity = getById(id);
+            // 处理同类内部方法调用缓存不生效问题
+            Commodity commodity = SpringUtils.getBean(this.getClass()).getCommodityById(id);
             log.info("商品【{}】当前库存: {}", commodity.getName(), commodity.getNumber());
             log.info("扣减库存: {}", number);
             if (commodity.getNumber() < number) {
                 throw new ServiceException("库存不足");
             }
             commodity.setNumber(commodity.getNumber() - number);
-            return updateById(commodity);
+            SpringUtils.getBean(this.getClass()).updateCommodity(commodity);
+            return true;
         } finally {
             rLock.unlock();
         }
+    }
+
+    @CacheEvict(cacheNames = {"commodity_detail"}, key = "#id", condition = "#result eq true")
+    @Override
+    public boolean removeCommodityById(Long id) {
+        return removeById(id);
     }
 }

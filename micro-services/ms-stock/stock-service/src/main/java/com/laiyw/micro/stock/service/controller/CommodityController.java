@@ -33,7 +33,7 @@ public class CommodityController extends BaseController implements CommodityClie
 
     @Override
     public CommodityVo getCommodityInfoById(Long id) {
-        Commodity commodity = commodityService.getById(id);
+        Commodity commodity = commodityService.getCommodityById(id);
         return BeanUtils.createCopy(commodity, CommodityVo.class);
     }
 
@@ -47,4 +47,9 @@ public class CommodityController extends BaseController implements CommodityClie
         return AjaxResult.success(commodityService.randomCommodity());
     }
 
+    @GetMapping("/removeCommodityById")
+    public AjaxResult removeCommodityById(Long id) {
+        commodityService.removeCommodityById(id);
+        return success();
+    }
 }

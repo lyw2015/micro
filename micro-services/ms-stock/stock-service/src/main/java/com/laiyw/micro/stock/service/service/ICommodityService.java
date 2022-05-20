@@ -21,6 +21,14 @@ public interface ICommodityService extends IService<Commodity> {
      */
     Commodity randomCommodity();
 
+    /**
+     * 根据ID获取库存
+     *
+     * @param id
+     * @return
+     */
+    Commodity getCommodityById(Long id);
+
 
     /**
      * 获取商品列表
@@ -30,6 +38,14 @@ public interface ICommodityService extends IService<Commodity> {
     List<Commodity> listCommodity();
 
     /**
+     * 跟新库存
+     *
+     * @param commodity
+     * @return
+     */
+    Commodity updateCommodity(Commodity commodity);
+
+    /**
      * 更新库存
      *
      * @param id
@@ -37,4 +53,12 @@ public interface ICommodityService extends IService<Commodity> {
      * @return
      */
     boolean updateCommodityStock(Long id, Long number);
+
+    /**
+     * 根据ID删除库存
+     *
+     * @param id
+     * @return
+     */
+    boolean removeCommodityById(Long id);
 }
